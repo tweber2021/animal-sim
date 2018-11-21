@@ -46,9 +46,8 @@ class Map {
         char[][] surroundings = new char[3][3];
         for(int k=-1;k<2;k++){
             for(int l=-1;l<2;l++){
-                boolean inRange = (x+k > 0 && x+k < width && y+l > 0 && y+l < height);
+                boolean inRange = (x+k >= 0 && x+k < width && y+l >= 0 && y+l < height);
                 if(inRange){surroundings[k+1][l+1] = read(x+k,y+l);}
-                else{surroundings[k+1][l+1] = ' ';} // Animals have a blind spot here, because of screen wrap
             }
         }
         return surroundings;

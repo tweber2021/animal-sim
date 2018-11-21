@@ -44,6 +44,7 @@ class Game {
             long time = System.currentTimeMillis();
             for (Animal animal : animals) {
                 if (animal.isAlive()) {
+                    refreshMap(map, animals);
                     moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
                 }
             }
@@ -98,7 +99,6 @@ class Game {
     }
 
     private static void moveAnimal(Animal animal, Map map, Animal[] animals, Animal.Move move, int xlim, int ylim) {
-        refreshMap(map, animals); // TODO: Fix mice bug
         if (animal.getEnergy() <= 0) {
             animal.die();
         } // If no energy, die
