@@ -7,14 +7,14 @@ public class AnimalSim {
         // Starting Menu
         JFrame dialog = new JFrame("AnimalSim Menu");
         dialog.setResizable(false);
-        dialog.setBackground(new Color(31,31,31));
+        dialog.getContentPane().setBackground(new Color(15,15,15));
         dialog.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Starting text
         JLabel dialogText = new JLabel("Welcome to AnimalSim!",SwingConstants.CENTER); // HTML time (center text)
         dialogText.setForeground(new Color(0,255,0));
 
-        // Button
+        // Demo Button
         JButton demoButton = new JButton("Play Demo");
         demoButton.setPreferredSize(new Dimension(200,50));
         demoButton.setFocusPainted(false);
@@ -28,15 +28,29 @@ public class AnimalSim {
             demo.start();
         });
 
-        // Content pane, add components
-        Container pane = dialog.getContentPane();
-        pane.setBackground(new Color(15,15,15));
-        pane.add(demoButton,BorderLayout.SOUTH);
-        pane.add(dialogText,BorderLayout.NORTH);
+        dialog.add(dialogText);
+        dialog.add(demoButton);
+        dialog.setLayout(new GridLayout(2,1,1,0));
+        dialog.setBackground(new Color(15,15,15));
 
         // Finalize
         dialog.pack();
         dialog.setLocationRelativeTo(null); // Center
         dialog.setVisible(true);
+
+        // Debug and other temporary stuff
+        int[] tally = new int[3];
+        for (int i = 0; i <100 ; i++) {
+            char winner = new Game(false).run();
+            switch(winner){
+                case 'm': tally[0]++;
+                break;
+                case 'c': tally[1]++;
+                break;
+                case 's': tally[2]++;
+            }
+        }
+        System.out.println("Games won out of 100:");
+        System.out.println("\nMice: "+tally[0]+"\nCats: "+tally[1]+"\nSnakes: "+tally[2]);
     }
 }

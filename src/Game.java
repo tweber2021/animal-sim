@@ -1,12 +1,13 @@
 class Game {
     private boolean fastForward = false; // give our toggle speed method access to the speed
     private boolean visible;
+    private static char[] TEAMS = new char[]{'s', 'm', 'c'};
 
     Game(boolean visible) {
         this.visible = visible;
     }
 
-    void run() { // Future (outside of demo build): return array of top genes to be manipulated
+    char run() { // Future (outside of demo build): return array of top genes to be manipulated
         int width = 90; // Original: 112
         int height = (int) (0.4375 * width);
         SimWindow window = new SimWindow("AnimalSim", width); // construct a SimWindow, 7:16
@@ -40,7 +41,7 @@ class Game {
             });
         }
 
-        while (remainingTeams(animals, new char[]{'s', 'm', 'c'}) > 1) { // Check if at least two teams are playing
+        while (remainingTeams(animals) > 1) { // Check if at least two teams are playing
             long time = System.currentTimeMillis();
             for (Animal animal : animals) {
                 if (animal.isAlive()) {
@@ -64,9 +65,10 @@ class Game {
             refreshMap(map, animals);
             window.setMap(map);
             window.sidePrintln("Game Over", 2);
-            window.updateSideText();
             window.fastForwardButton.setEnabled(false);
+            window.updateSideText();
         }
+        return getWinner(animals);
     }
 
     private static int countAlive(Animal[] animals) {
@@ -183,9 +185,9 @@ class Game {
         return false;
     }
 
-    private static int remainingTeams(Animal[] animals, char[] teams) {
+    private static int remainingTeams(Animal[] animals) {
         int numTeams = 0;
-        for (char team : teams) {
+        for (char team : TEAMS) {
             if (countAlive(animals, team) > 0) {
                 numTeams++;
             }
@@ -233,5 +235,14 @@ class Game {
 
     private void toggleSpeed() {
         fastForward = !fastForward;
+    }
+
+    private char getWinner(Animal[] animals){
+        for (char team : TEAMS) {
+            if (countAlive(animals, team) > 0) {
+                return team;
+            }
+        }
+        return ' ';
     }
 }

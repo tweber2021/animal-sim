@@ -25,7 +25,7 @@ class Mouse extends Animal {
     private boolean anyMice(char[][] surroundings){
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
-                if(surroundings[i][j]=='m'&&!(i==1&&j==1)){return true;} // Should not be able to move
+                if(surroundings[i][j]=='m'&&!(i==1&&j==1)){return true;}
             }
         }
         return false;
