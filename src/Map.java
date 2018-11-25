@@ -52,4 +52,20 @@ class Map {
         }
         return surroundings;
     }
+
+    void overlay(Map otherMap){ // overlay another map on top of the current one (used for game of life)
+        for(int i=0;i<width;i++){
+            for(int j=0;j<height;j++){
+                if(otherMap.read(i,j)!=' '&&otherMap.read(i,j)!=0){set(i,j,otherMap.read(i,j),otherMap.readID(i,j));}
+            }
+        }
+    }
+
+    void setEqualTo(Map otherMap){ // overlay another map on top of the current one (used for game of life)
+        for(int i=0;i<width;i++){
+            for(int j=0;j<height;j++){
+                set(i,j,otherMap.read(i,j),otherMap.readID(i,j));
+            }
+        }
+    }
 }

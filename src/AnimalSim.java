@@ -37,20 +37,5 @@ public class AnimalSim {
         dialog.pack();
         dialog.setLocationRelativeTo(null); // Center
         dialog.setVisible(true);
-
-        // Debug and other temporary stuff
-        int[] tally = new int[3];
-        for (int i = 0; i <100 ; i++) {
-            char winner = new Game(false).run();
-            switch(winner){
-                case 'm': tally[0]++;
-                break;
-                case 'c': tally[1]++;
-                break;
-                case 's': tally[2]++;
-            }
-        }
-        System.out.println("Games won out of 100:");
-        System.out.println("\nMice: "+tally[0]+"\nCats: "+tally[1]+"\nSnakes: "+tally[2]);
     }
 }

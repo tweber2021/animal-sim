@@ -7,11 +7,12 @@ class Game {
         this.visible = visible;
     }
 
-    char run() { // Future (outside of demo build): return array of top genes to be manipulated
+    void run() { // Future (outside of demo build): return array of top genes to be manipulated
         int width = 90; // Original: 112
         int height = (int) (0.4375 * width);
         SimWindow window = new SimWindow("AnimalSim", width); // construct a SimWindow, 7:16
         Map map = new Map(width, height);
+
         if (visible) {
             window.setVisible(true);
             window.setMap(map);
@@ -27,6 +28,12 @@ class Game {
                 animals[i] = new Cat(i, (int) (Math.random() * width), (int) (Math.random() * height), new Genes(new byte[]{0}));
             } else {
                 animals[i] = new Snake(i, (int) (Math.random() * width), (int) (Math.random() * height), new Genes(new byte[]{0}));
+            }
+        }
+        GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),10);
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                if(Math.random()>0.5){map.set(i,j,'o',0);} // Random game of life configuration
             }
         }
 
@@ -49,11 +56,14 @@ class Game {
                     moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
                 }
             }
+            //doConwayStuff(animals,map,conway);
+
             // Refresh display
             refreshMap(map, animals);
+            doConwayStuff(animals,map,conway);
             if (visible) {
                 window.setMap(map);
-                refreshSideText(animals, window);
+                refreshSideText(animals, conway, window);
             }
             map.clear();
 
@@ -63,12 +73,13 @@ class Game {
         }
         if (visible) {
             refreshMap(map, animals);
+            doConwayStuff(animals,map,conway);
             window.setMap(map);
             window.sidePrintln("Game Over", 2);
             window.fastForwardButton.setEnabled(false);
             window.updateSideText();
         }
-        return getWinner(animals);
+        System.out.println(getWinner(animals));
     }
 
     private static int countAlive(Animal[] animals) {
@@ -99,6 +110,16 @@ class Game {
             }
         }
     }
+
+    /*private static void refreshMap(Map map, Animal[] animals, GameOfLife conway) {
+        map.clear();
+        for (Animal animal : animals) {
+            if (animal.isAlive()) {
+                map.set(animal.getX(), animal.getY(), animal.getSymbol(), animal.getID());
+            }
+        }
+        doConwayStuff(animals, map, conway);
+    }*/
 
     private static void moveAnimal(Animal animal, Map map, Animal[] animals, Animal.Move move, int xlim, int ylim) {
         if (animal.getEnergy() <= 0) {
@@ -215,7 +236,7 @@ class Game {
         return maxKills;
     }
 
-    private static void refreshSideText(Animal[] animals, SimWindow window) { // At least it's easy to debug ¯\_(ツ)_/¯
+    private static void refreshSideText(Animal[] animals, GameOfLife conway, SimWindow window) { // At least it's easy to debug ¯\_(ツ)_/¯
         window.clearSideText();
         window.sidePrintln("Animal Simulation");
         window.sidePrintln(countAlive(animals) + " Alive", 1);
@@ -230,6 +251,8 @@ class Game {
         window.sidePrintln("Mice: "+ getTeamMaxKills(animals, 'm'));
         window.sidePrintln("Cats: "+ getTeamMaxKills(animals, 'c'));
         window.sidePrintln("Snakes: "+ getTeamMaxKills(animals, 's'));
+        window.sidePrintln("Game Of Life", 1);
+        window.sidePrintln("Population: "+conway.getPopulation());
         window.updateSideText();
     }
 
@@ -244,5 +267,14 @@ class Game {
             }
         }
         return ' ';
+    }
+
+    private static void doConwayStuff(Animal[] animals, Map map, GameOfLife conway){
+        map.overlay(conway.gen());
+        for (Animal animal : animals) {
+            if (map.read(animal.getX(), animal.getY()) == 'o' && animal.isAlive()) {
+                animal.die();
+            }
+        }
     }
 }
