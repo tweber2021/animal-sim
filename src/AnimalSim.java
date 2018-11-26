@@ -11,7 +11,7 @@ public class AnimalSim {
         dialog.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Starting text
-        JLabel dialogText = new JLabel("Welcome to AnimalSim!",SwingConstants.CENTER); // HTML time (center text)
+        JLabel dialogText = new JLabel("Welcome to AnimalSim!",SwingConstants.CENTER); // center text
         dialogText.setForeground(new Color(0,255,0));
 
         // Demo Button

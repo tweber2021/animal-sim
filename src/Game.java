@@ -30,12 +30,7 @@ class Game {
                 animals[i] = new Snake(i, (int) (Math.random() * width), (int) (Math.random() * height), new Genes(new byte[]{0}));
             }
         }
-        GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),10);
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                if(Math.random()>0.5){map.set(i,j,'o',0);} // Random game of life configuration
-            }
-        }
+        GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),20,true);
 
         if (visible) {
             window.fastForwardButton.addActionListener(e -> {
@@ -56,7 +51,6 @@ class Game {
                     moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
                 }
             }
-            //doConwayStuff(animals,map,conway);
 
             // Refresh display
             refreshMap(map, animals);
@@ -68,7 +62,7 @@ class Game {
             map.clear();
 
             if (!fastForward && visible) {
-                wait((int) (80 - (System.currentTimeMillis() - time)));
+                wait((int) (8000 - (System.currentTimeMillis() - time)));
             } // Let 80ms pass before the next moves
         }
         if (visible) {
@@ -79,7 +73,7 @@ class Game {
             window.fastForwardButton.setEnabled(false);
             window.updateSideText();
         }
-        System.out.println(getWinner(animals));
+        System.out.println("Winner: "+getWinner(animals));
     }
 
     private static int countAlive(Animal[] animals) {
@@ -110,16 +104,6 @@ class Game {
             }
         }
     }
-
-    /*private static void refreshMap(Map map, Animal[] animals, GameOfLife conway) {
-        map.clear();
-        for (Animal animal : animals) {
-            if (animal.isAlive()) {
-                map.set(animal.getX(), animal.getY(), animal.getSymbol(), animal.getID());
-            }
-        }
-        doConwayStuff(animals, map, conway);
-    }*/
 
     private static void moveAnimal(Animal animal, Map map, Animal[] animals, Animal.Move move, int xlim, int ylim) {
         if (animal.getEnergy() <= 0) {
@@ -252,7 +236,9 @@ class Game {
         window.sidePrintln("Cats: "+ getTeamMaxKills(animals, 'c'));
         window.sidePrintln("Snakes: "+ getTeamMaxKills(animals, 's'));
         window.sidePrintln("Game Of Life", 1);
+        window.sidePrintln("Generation: "+conway.getGeneration());
         window.sidePrintln("Population: "+conway.getPopulation());
+        window.sidePrintln("Kills: "+conway.getKills());
         window.updateSideText();
     }
 
@@ -274,6 +260,7 @@ class Game {
         for (Animal animal : animals) {
             if (map.read(animal.getX(), animal.getY()) == 'o' && animal.isAlive()) {
                 animal.die();
+                conway.incKills();
             }
         }
     }
