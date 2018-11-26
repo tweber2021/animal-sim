@@ -62,7 +62,7 @@ class Game {
             map.clear();
 
             if (!fastForward && visible) {
-                wait((int) (8000 - (System.currentTimeMillis() - time)));
+                wait((int) (80 - (System.currentTimeMillis() - time)));
             } // Let 80ms pass before the next moves
         }
         if (visible) {

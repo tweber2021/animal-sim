@@ -17,7 +17,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         nextPattern.setEqualTo(pattern);
     }
 
-    Map gen(){
+    Map gen(){ // TODO: Screen wrap
         generation++;
         nextPattern.setEqualTo(pattern);
         for (int i = 0; i < pattern.getWidth(); i++) { // 2D array iteration
@@ -144,7 +144,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
                 input[x][y] = currentChar;
                 x++;
             }
-            else if(currentChar=='\n'){ // TODO: Fix spacing/newline incompatibility issues
+            else if(currentChar=='\n'){
                 if(x>width){width=x;}
                 x=0;
                 y++;
@@ -154,7 +154,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         System.out.println(width);
 
         if(width==0){
-            System.out.println("Width = 0");
             randomize(20);
             return;
         }
@@ -164,6 +163,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             for (int j = 0; j <= y; j++) {
                 int ofsX = (pattern.getWidth()/2)-(width/2);
                 int ofsY = (pattern.getHeight()/2)-(width/2);
+                if(input[i][j]!='o'){input[i][j]=' ';} // Spaces versus nothing makes a difference here
                 pattern.set(i+ofsX,j+ofsY,input[i][j],-1);
             }
         }
