@@ -1,3 +1,3 @@
 # animal-sim
 
-Exploring genetic algorithms through a simple textbox simulation.
+Exploring genetic algorithms and cellular automata through a simple textbox simulation.
