@@ -8,10 +8,10 @@ class Game {
     }
 
     void run() { // Future (outside of demo build): return array of top genes to be manipulated
-        int width = 90; // Original: 112
-        int height = (int) (0.4375 * width);
-        SimWindow window = new SimWindow("AnimalSim", width); // construct a SimWindow, 7:16
-        Map map = new Map(width, height);
+        int width = 200;
+        int height = (int)(0.4375*width);
+        SimWindow window = new SimWindow("AnimalSim",width); // construct a SimWindow, 7:16
+        Map map = new Map(width,height);
 
         if (visible) {
             window.setVisible(true);
@@ -20,7 +20,7 @@ class Game {
             window.sidePrintln("Animal Simulation");
         }
 
-        Animal[] animals = new Animal[300];
+        Animal[] animals = new Animal[1200];
 
         for (int i = 0; i < animals.length; i++) {
             if (i < animals.length / 3) {
@@ -31,7 +31,7 @@ class Game {
                 animals[i] = new Snake(i, (int) (Math.random() * width), (int) (Math.random() * height), new Genes(new byte[]{0}));
             }
         }
-        GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),20, visible); // Don't prompt the user for a pattern if they don't watch
+        GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),40, visible); // Don't prompt the user for a pattern if they don't watch
 
         if (visible) {
             window.fastForwardButton.addActionListener(e -> {

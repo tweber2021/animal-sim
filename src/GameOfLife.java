@@ -75,12 +75,15 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         prompt.setResizable(false);
         prompt.setAlwaysOnTop(true);
 
-        JTextArea textArea = new JTextArea(20,20);
+        JTextArea textArea = new JTextArea(15,15);
         textArea.setBackground(new Color(0,0,0));
         textArea.setForeground(new Color(0,255,0));
 
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(250,250));
+
         JButton submitButton = new JButton("Submit");
-        submitButton.setPreferredSize(new Dimension(400,50));
+        submitButton.setPreferredSize(new Dimension(200,50));
         submitButton.setFocusPainted(false);
         submitButton.setBorder(null);
         submitButton.setBackground(new Color(31,31,31));
@@ -101,7 +104,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         });
 
         Container pane = prompt.getContentPane();
-        pane.add(textArea, BorderLayout.NORTH);
+        pane.add(scrollPane, BorderLayout.NORTH);
         pane.add(submitButton, BorderLayout.SOUTH);
 
         prompt.pack();
@@ -134,7 +137,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
 
     private void setFromText(String text){
 
-        char[][] input = new char[39][39];
+        char[][] input = new char[100][100];
         int x = 0;
         int y = 0;
         int width = 0;
@@ -157,7 +160,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         if(x>width){width=x;}
 
         if(width==0){
-            randomize(20);
+            randomize(40);
             return;
         }
 
