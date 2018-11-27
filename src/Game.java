@@ -15,6 +15,7 @@ class Game {
 
         if (visible) {
             window.setVisible(true);
+            window.setClosable(false); // Don't allow the user to close the window while taking pattern input
             window.setMap(map);
             window.sidePrintln("Animal Simulation");
         }
@@ -30,7 +31,7 @@ class Game {
                 animals[i] = new Snake(i, (int) (Math.random() * width), (int) (Math.random() * height), new Genes(new byte[]{0}));
             }
         }
-        GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),20,true);
+        GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),20, visible); // Don't prompt the user for a pattern if they don't watch
 
         if (visible) {
             window.fastForwardButton.addActionListener(e -> {
@@ -41,6 +42,7 @@ class Game {
                     window.fastForwardButton.setText("Fast Forward");
                 }
             });
+            window.setClosable(true);
         }
 
         while (remainingTeams(animals) > 1) { // Check if at least two teams are playing

@@ -17,7 +17,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         nextPattern.setEqualTo(pattern);
     }
 
-    Map gen(){ // TODO: Screen wrap
+    Map gen(){
         generation++;
         nextPattern.setEqualTo(pattern);
         for (int i = 0; i < pattern.getWidth(); i++) { // 2D array iteration
@@ -27,10 +27,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             }
         }
         pattern.setEqualTo(nextPattern);
-        pattern.setEqualTo(nextPattern);
-        /*try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ignored) {}*/
         return pattern;
     }
 
@@ -39,8 +35,15 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         for (int i = 0; i < 3 ; i++) {
             for (int j = 0; j < 3; j++) {
                 if(i==1 && j==1){continue;} // Exclude self
-                if(x+i-1<0 || x+i-1>=pattern.getWidth() || y+j-1<0 || y+j-1>=pattern.getHeight()){continue;} // Skip out of bounds points so no exceptions are thrown
-                if(isAlive(x+i-1,y+j-1)){neighbors++;}
+                int curX = x+i-1; int curY = y+j-1; // Current coordinates
+
+                // Screen Wrap
+                if(curX >= pattern.getWidth()){curX = curX%pattern.getWidth();}
+                if(curX < 0){curX += pattern.getWidth();}
+                if(curY >= pattern.getHeight()){curY = curY%pattern.getHeight();}
+                if(curY < 0){curY += pattern.getHeight();}
+
+                if(isAlive(curX,curY)){neighbors++;}
             }
         }
         return neighbors;
@@ -55,10 +58,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         return pattern.read(x,y) == 'o';
     }
 
-    // void setPattern(Map map){
-    //    pattern = map;
-    //}
-
     private void randomize(int width){
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
@@ -72,26 +71,33 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
 
     private void promptPattern() {
         JFrame prompt = new JFrame("Enter a starting pattern.");
-        prompt.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // You can't close this window!
+        prompt.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // You can't close this window!
         prompt.setResizable(false);
         prompt.setAlwaysOnTop(true);
 
-        JTextArea textArea = new JTextArea(10,10);
+        JTextArea textArea = new JTextArea(20,20);
         textArea.setBackground(new Color(0,0,0));
         textArea.setForeground(new Color(0,255,0));
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setPreferredSize(new Dimension(200,50));
+        submitButton.setPreferredSize(new Dimension(400,50));
         submitButton.setFocusPainted(false);
         submitButton.setBorder(null);
         submitButton.setBackground(new Color(31,31,31));
         submitButton.setForeground(new Color(0,255,0));
         AtomicBoolean pressed = new AtomicBoolean(false);
-        submitButton.addActionListener(e -> {
-            prompt.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            prompt.dispatchEvent(new WindowEvent(prompt, WindowEvent.WINDOW_CLOSING));
-            setFromText(textArea.getText());
-            pressed.set(true);
+        submitButton.addActionListener(e -> prompt.dispatchEvent(new WindowEvent(prompt, WindowEvent.WINDOW_CLOSING)));
+
+        prompt.addWindowListener(new java.awt.event.WindowAdapter() { // Store the result even if the user closes the window
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                pressed.set(true);
+                try{
+                setFromText(textArea.getText());}
+                catch(Exception e){
+                    System.out.println("Error. Using random.");
+                    setFromText("");
+                }
+            }
         });
 
         Container pane = prompt.getContentPane();
@@ -127,8 +133,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
     }
 
     private void setFromText(String text){
-        System.out.println("Setting:");
-        System.out.println(text);
 
         char[][] input = new char[39][39];
         int x = 0;
@@ -151,7 +155,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             }
         }
         if(x>width){width=x;}
-        System.out.println(width);
 
         if(width==0){
             randomize(20);

@@ -78,4 +78,9 @@ class SimWindow extends JFrame {
         return (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     }
 
+    void setClosable(boolean closable){
+        if(closable){setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);}
+        else{setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);}
+    }
+
 }
