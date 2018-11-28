@@ -107,14 +107,10 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             int patternSelection = patternPicker.getSelectedIndex();
             switch(patternSelection){
                 case 0:
-                    patternText = ".";
+                    patternText = "";
                     break;
                 case 1:
-                    //patternText = "";
-
-                    // DEBUG
-                    patternText = getFromRLE("24bo$22bobo$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o$2o8bo3bob2o4b\n" +
-                            "obo$10bo5bo7bo$11bo3bo$12b2o!");
+                    patternText = "random";
                     break;
                 case 2:
                     readBoxInput.set(true);
@@ -151,6 +147,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             textArea.setEditable(readBoxInput.get());
             if(readBoxInput.get()){
                 patternText = textArea.getText();
+                if(isRLE(patternText)){System.out.println("Run-Length format detected!");textArea.setText(getFromRLE(patternText));}
             }
         }
     }
@@ -175,10 +172,15 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
 
     private void setFromText(String text){
 
-        char[][] input = new char[100][100];
+        char[][] input = new char[pattern.getWidth()][pattern.getHeight()]; // Patterns can be as large as the map
         int x = 0;
         int y = 0;
         int width = 0;
+
+        if(text.equals("random")){
+            randomize(40);
+            return;
+        }
 
         // Generate from input
         for (int i = 0; i < text.length(); i++) {
@@ -196,11 +198,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             }
         }
         if(x>width){width=x;}
-
-        if(width==0){
-            randomize(40);
-            return;
-        }
 
         // Add to the board
         for (int i = 0; i < width; i++) {
@@ -233,7 +230,8 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
     }
 
     private String getFromRLE(String RLEdata){ // Simple format commonly used for storing Life patterns
-        StringBuilder plaintext = new StringBuilder(); // Convert from RLE to plaintext
+        StringBuilder plaintext = new StringBuilder(); // Convert from RLE to plaintext.
+        // Could be faster, but we don't need to worry about speed too much here since we're not constantly using this
         int repeat = 1;
         System.out.println("Parsing...");
         int readPos = 0;
@@ -243,9 +241,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
                 while(isNumber(RLEdata.charAt(readPos+readAhead))){ // Should not happen at EOF so it shouldn't overflow
                     readAhead++;
                 }
-                //System.out.println("Parsing: "+RLEdata.substring(readPos,readPos+readAhead));
                 repeat = Integer.parseInt(RLEdata.substring(readPos,readPos+readAhead));
-                //System.out.println("Parsed: "+ repeat);
                 readPos+=readAhead;
             }
             if(RLEdata.charAt(readPos)=='b'||RLEdata.charAt(readPos)=='o'||RLEdata.charAt(readPos)=='$'){
@@ -275,5 +271,16 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
     private boolean isNumber(char character){
         //System.out.println("In: "+character+": "+((int)character >= 48 &&(int)character <= 57));
         return ((int)character >= 48 &&(int)character <= 57); // ASCII values 48-57 are digits 0-9
+    }
+
+    private boolean isRLE(String data){ // Determine if a pattern is encoded in the RLE format to act on it accordingly.
+        return (charInStr(data,'$')||charInStr(data,'b')||charInStr(data, '!'));
+    }
+
+    private boolean charInStr(String str, char chr){
+        for (int i = 0; i < str.length(); i++) {
+            if(str.charAt(i)==chr){return true;}
+        }
+        return false;
     }
 }

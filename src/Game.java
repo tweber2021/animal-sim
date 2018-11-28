@@ -10,7 +10,7 @@ class Game {
     void run() { // Future (outside of demo build): return array of top genes to be manipulated
         int width = 200;
         int height = (int)(0.4375*width);
-        SimWindow window = new SimWindow("AnimalSim",width); // construct a SimWindow, 7:16
+        SimWindow window = new SimWindow("AnimalSim",width); // construct a SimWindow, 7:16 textbox ratio
         Map map = new Map(width,height);
 
         if (visible) {

@@ -14,6 +14,7 @@ class SimWindow extends JFrame {
         setResizable(false);
 
         textArea = new JTextArea(size,(int)(0.4375*size));
+        System.out.println(textArea.getWidth()+", "+textArea.getHeight());
         textArea.setEditable(false);
         textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 
@@ -35,7 +36,6 @@ class SimWindow extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension((int)(getScreenHeight()*0.7),(int)(getScreenHeight()*0.7)));
-        scrollPane.getViewport().setViewPosition(new Point(300,300));
 
         Container pane = getContentPane();
         pane.add(scrollPane, BorderLayout.CENTER);
