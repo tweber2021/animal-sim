@@ -110,7 +110,11 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
                     patternText = ".";
                     break;
                 case 1:
-                    patternText = "";
+                    //patternText = "";
+
+                    // DEBUG
+                    patternText = getFromRLE("24bo$22bobo$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o$2o8bo3bob2o4b\n" +
+                            "obo$10bo5bo7bo$11bo3bo$12b2o!");
                     break;
                 case 2:
                     readBoxInput.set(true);
@@ -226,5 +230,50 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         options[0] = "None"; options[1] = "Random"; options[2] = "Custom";
         System.arraycopy(getExampleTitles(),0,options,3,LifeExamples.getNumExamples());
         return options;
+    }
+
+    private String getFromRLE(String RLEdata){ // Simple format commonly used for storing Life patterns
+        StringBuilder plaintext = new StringBuilder(); // Convert from RLE to plaintext
+        int repeat = 1;
+        System.out.println("Parsing...");
+        int readPos = 0;
+        while(readPos<RLEdata.length()){
+            if(isNumber(RLEdata.charAt(readPos))){ // Look for repeat values
+                int readAhead = 1;
+                while(isNumber(RLEdata.charAt(readPos+readAhead))){ // Should not happen at EOF so it shouldn't overflow
+                    readAhead++;
+                }
+                //System.out.println("Parsing: "+RLEdata.substring(readPos,readPos+readAhead));
+                repeat = Integer.parseInt(RLEdata.substring(readPos,readPos+readAhead));
+                //System.out.println("Parsed: "+ repeat);
+                readPos+=readAhead;
+            }
+            if(RLEdata.charAt(readPos)=='b'||RLEdata.charAt(readPos)=='o'||RLEdata.charAt(readPos)=='$'){
+                //System.out.print("["+repeat+"]");
+                for (int i = 0; i < repeat; i++) { // Repeat number of times the int specified
+                    switch(RLEdata.charAt(readPos)){
+                        case 'b': // Dead cell
+                            plaintext.append(".");
+                            System.out.print(".");
+                            break;
+                        case 'o': // Live cell
+                            plaintext.append("O");
+                            System.out.print("O");
+                            break;
+                        case '$': // Line break
+                            plaintext.append("\n");
+                            System.out.println();
+                    }
+                }
+            }
+            repeat = 1;
+            readPos++;
+        }
+        return plaintext.toString();
+    }
+
+    private boolean isNumber(char character){
+        //System.out.println("In: "+character+": "+((int)character >= 48 &&(int)character <= 57));
+        return ((int)character >= 48 &&(int)character <= 57); // ASCII values 48-57 are digits 0-9
     }
 }
