@@ -4,6 +4,7 @@ import java.awt.event.WindowEvent;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 class GameOfLife { // Conway's Game of Life using Maps for game compatibility
+    private String patternText = "";
     private Map pattern;
     private Map nextPattern;
     private int kills;
@@ -70,6 +71,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
     }
 
     private void promptPattern() {
+        AtomicBoolean readBoxInput = new AtomicBoolean();
         JFrame prompt = new JFrame("Enter a starting pattern.");
         prompt.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // You can't close this window!
         prompt.setResizable(false);
@@ -91,11 +93,40 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         AtomicBoolean pressed = new AtomicBoolean(false);
         submitButton.addActionListener(e -> prompt.dispatchEvent(new WindowEvent(prompt, WindowEvent.WINDOW_CLOSING)));
 
+        JPanel patternPanel = new JPanel(new BorderLayout());
+        patternPanel.add(new JLabel("Enter a custom Life pattern."));
+        patternPanel.add(scrollPane);
+
+        patternText = ".";
+
+        String[] choices = getPatternChoices();
+        JComboBox<String> patternPicker = new JComboBox<>(choices);
+        patternPicker.setPreferredSize(new Dimension(200,25));
+        patternPicker.addActionListener(e -> {
+            readBoxInput.set(false);
+            int patternSelection = patternPicker.getSelectedIndex();
+            switch(patternSelection){
+                case 0:
+                    patternText = ".";
+                    break;
+                case 1:
+                    patternText = "";
+                    break;
+                case 2:
+                    readBoxInput.set(true);
+                    break;
+            }
+            if(patternSelection>2){
+                patternText = LifeExamples.getExample(patternSelection-3);
+            }
+            textArea.setText(patternText);
+        });
+
         prompt.addWindowListener(new java.awt.event.WindowAdapter() { // Store the result even if the user closes the window
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 pressed.set(true);
                 try{
-                setFromText(textArea.getText());}
+                setFromText(patternText);}
                 catch(Exception e){
                     System.out.println("Error. Using random.");
                     setFromText("");
@@ -104,16 +135,19 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         });
 
         Container pane = prompt.getContentPane();
-        pane.add(scrollPane, BorderLayout.NORTH);
-        pane.add(submitButton, BorderLayout.SOUTH);
+        pane.add(patternPicker,BorderLayout.NORTH);
+        pane.add(patternPanel,BorderLayout.CENTER);
+        pane.add(submitButton,BorderLayout.SOUTH);
+        patternPanel.setVisible(true);
 
         prompt.pack();
         prompt.setLocationRelativeTo(null);
         prompt.setVisible(true);
-        while(!pressed.get()){
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException ignored){}
+        while(!pressed.get()) {
+            textArea.setEditable(readBoxInput.get());
+            if(readBoxInput.get()){
+                patternText = textArea.getText();
+            }
         }
     }
 
@@ -177,5 +211,20 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
 
     int getGeneration() {
         return generation;
+    }
+
+    private String[] getExampleTitles(){
+        String[] list = new String[LifeExamples.getNumExamples()];
+        for (int i = 0; i < LifeExamples.getNumExamples(); i++) {
+            list[i] = LifeExamples.getExampleTitle(i);
+        }
+        return list;
+    }
+
+    private String[] getPatternChoices(){ // Get the entire list of combo box options
+        String[] options = new String[LifeExamples.getNumExamples()+3];
+        options[0] = "None"; options[1] = "Random"; options[2] = "Custom";
+        System.arraycopy(getExampleTitles(),0,options,3,LifeExamples.getNumExamples());
+        return options;
     }
 }

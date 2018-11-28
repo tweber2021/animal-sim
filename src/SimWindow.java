@@ -35,6 +35,7 @@ class SimWindow extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension((int)(getScreenHeight()*0.7),(int)(getScreenHeight()*0.7)));
+        scrollPane.getViewport().setViewPosition(new Point(300,300));
 
         Container pane = getContentPane();
         pane.add(scrollPane, BorderLayout.CENTER);
