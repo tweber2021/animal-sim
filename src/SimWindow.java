@@ -13,12 +13,13 @@ class SimWindow extends JFrame {
         setSize((int)(getScreenHeight()*0.8),(int)(getScreenHeight()*0.8));
         setResizable(false);
 
-        textArea = new JTextArea(size,(int)(0.4375*size));
-        System.out.println(textArea.getWidth()+", "+textArea.getHeight());
+        textArea = new JTextArea();
         textArea.setEditable(false);
         textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        textArea.setHighlighter(null);
+        textArea.setSize(size,(int)(0.4375*size));
 
-        sideTextArea = new JTextArea(20, 30);
+        sideTextArea = new JTextArea(10, 30);
         sideTextArea.setEditable(false);
         sideTextArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         sideText = "";
@@ -27,7 +28,7 @@ class SimWindow extends JFrame {
         fastForwardButton.setFocusPainted(false);
         fastForwardButton.setPreferredSize(new Dimension(0, getScreenHeight()/27)); // Width doesn't matter
 
-        JSlider zoomSlider = new JSlider(JSlider.HORIZONTAL,1,24,12);
+        JSlider zoomSlider = new JSlider(JSlider.HORIZONTAL,1,24,6);
         zoomSlider.addChangeListener(e -> textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, zoomSlider.getValue())));
 
         JPanel controlPanel = new JPanel(new GridLayout(2,1));
@@ -39,6 +40,7 @@ class SimWindow extends JFrame {
 
         Container pane = getContentPane();
         pane.add(scrollPane, BorderLayout.CENTER);
+        //pane.add(textArea, BorderLayout.CENTER);
         pane.add(sideTextArea, BorderLayout.EAST);
         pane.add(controlPanel, BorderLayout.SOUTH);
 

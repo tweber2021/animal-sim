@@ -97,8 +97,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         patternPanel.add(new JLabel("Enter a custom Life pattern."));
         patternPanel.add(scrollPane);
 
-        patternText = ".";
-
         String[] choices = getPatternChoices();
         JComboBox<String> patternPicker = new JComboBox<>(choices);
         patternPicker.setPreferredSize(new Dimension(200,25));
@@ -128,7 +126,8 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
                 try{
                 setFromText(patternText);}
                 catch(Exception e){
-                    System.out.println("Error. Using random.");
+                    //e.printStackTrace();
+                    System.err.println("Pattern was imported with errors.");
                     setFromText("");
                 }
             }
@@ -147,7 +146,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             textArea.setEditable(readBoxInput.get());
             if(readBoxInput.get()){
                 patternText = textArea.getText();
-                if(isRLE(patternText)){System.out.println("Run-Length format detected!");textArea.setText(getFromRLE(patternText));}
+                if(isRLE(patternText)){textArea.setText(getFromRLE(patternText));}
             }
         }
     }
@@ -187,7 +186,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             char currentChar = text.charAt(i);
             if(currentChar=='O'){currentChar='o';}
             if(currentChar=='.'){currentChar=' ';}
-            if(currentChar==' '||currentChar=='o'){
+            if((currentChar==' '||currentChar=='o')&&(x<input.length&&y<input[0].length)){
                 input[x][y] = currentChar;
                 x++;
             }
@@ -198,12 +197,20 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             }
         }
         if(x>width){width=x;}
+        if(width>=pattern.getWidth()){
+            width = pattern.getWidth();
+            System.err.println("Pattern was too wide.");
+        }
+        if(y+1>=pattern.getHeight()){
+            y = pattern.getHeight()-2;
+            System.err.println("Pattern was too tall.");
+        }
 
         // Add to the board
         for (int i = 0; i < width; i++) {
             for (int j = 0; j <= y; j++) {
                 int ofsX = (pattern.getWidth()/2)-(width/2);
-                int ofsY = (pattern.getHeight()/2)-(width/2);
+                int ofsY = (pattern.getHeight()/2)-((y+1)/2);
                 if(input[i][j]!='o'){input[i][j]=' ';} // Spaces versus nothing makes a difference here
                 pattern.set(i+ofsX,j+ofsY,input[i][j],-1);
             }
@@ -269,7 +276,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
     }
 
     private boolean isNumber(char character){
-        //System.out.println("In: "+character+": "+((int)character >= 48 &&(int)character <= 57));
         return ((int)character >= 48 &&(int)character <= 57); // ASCII values 48-57 are digits 0-9
     }
 
