@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Finally fixed textbox bug">
+    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Examples are now stored in RLE files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/GameOfLife.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/GameOfLife.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/LifeExamples.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/LifeExamples.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/119P4H1V0.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/119P4H1V0.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/295P5H1V1.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/295P5H1V1.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/4-8-12 Diamond.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/4-8-12 Diamond.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/42100M.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/42100M.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/Backrake.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/Backrake.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/Enterprise.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/Enterprise.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/Gliders by the Dozen.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/Gliders by the Dozen.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/Gosper Glider Gun.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/Gosper Glider Gun.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/Orion.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/Orion.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/P200 Traffic Jam.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/P200 Traffic Jam.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/life/R-Pentomino.rle" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/life/R-Pentomino.rle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameOfLife.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameOfLife.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LifeExamples.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LifeExamples.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/119P4H1V0.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/119P4H1V0.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/295P5H1V1.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/295P5H1V1.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/4-8-12 Diamond.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/4-8-12 Diamond.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/42100M.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/42100M.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/Backrake.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/Backrake.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/Enterprise.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/Enterprise.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/Gliders by the Dozen.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/Gliders by the Dozen.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/Gosper Glider Gun.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/Gosper Glider Gun.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/Orion.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/Orion.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/P200 Traffic Jam.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/P200 Traffic Jam.rle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/life/R-Pentomino.rle" beforeDir="false" afterPath="$PROJECT_DIR$/src/life/R-Pentomino.rle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,14 +38,14 @@
     <session id="-1865449517">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2409" />
-          <entry key="txt" value="25" />
+          <entry key="java" value="2953" />
+          <entry key="txt" value="64" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2409" />
-          <entry key="PLAIN_TEXT" value="25" />
+          <entry key="JAVA" value="2953" />
+          <entry key="PLAIN_TEXT" value="64" />
         </counts>
       </usages-collector>
     </session>
@@ -56,11 +76,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameOfLife.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="668">
-              <caret line="314" column="27" selection-start-line="314" selection-start-column="27" selection-end-line="314" selection-end-column="27" />
+            <state relative-caret-position="248">
+              <caret line="20" column="156" selection-start-line="20" selection-start-column="156" selection-end-line="20" selection-end-column="156" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6270#6271#0" expanded="true" />
@@ -107,10 +127,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LifeExamples.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
+            <state relative-caret-position="665">
               <caret line="51" column="63" selection-start-line="51" selection-start-column="63" selection-end-line="51" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -160,8 +180,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/SimWindow.java" />
         <option value="$PROJECT_DIR$/src/Game.java" />
-        <option value="$PROJECT_DIR$/src/GameOfLife.java" />
         <option value="$PROJECT_DIR$/src/LifeExamples.java" />
+        <option value="$PROJECT_DIR$/src/GameOfLife.java" />
       </list>
     </option>
   </component>
@@ -270,11 +290,19 @@
       <option name="project" value="LOCAL" />
       <updated>1543446091205</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Examples are now stored in RLE files">
+      <created>1543455101808</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1543455101808</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="0" width="1926" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26894343" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -285,7 +313,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32815966" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32815966" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -346,7 +374,8 @@
     <MESSAGE value="Run Length Encoded pattern parsing" />
     <MESSAGE value="Add unversioned files" />
     <MESSAGE value="Finally fixed textbox bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finally fixed textbox bug" />
+    <MESSAGE value="Examples are now stored in RLE files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Examples are now stored in RLE files" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Animal.java">
@@ -408,10 +437,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/LifeExamples.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="51" column="63" selection-start-line="51" selection-start-column="63" selection-end-line="51" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#557#558#0" expanded="true" />
+            <element signature="e#616#617#0" expanded="true" />
+            <element signature="e#842#843#0" expanded="true" />
+            <element signature="e#882#883#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameOfLife.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="314" column="27" selection-start-line="314" selection-start-column="27" selection-end-line="314" selection-end-column="27" />
+        <state relative-caret-position="248">
+          <caret line="20" column="156" selection-start-line="20" selection-start-column="156" selection-end-line="20" selection-end-column="156" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#6270#6271#0" expanded="true" />
@@ -422,20 +465,6 @@
             <element signature="e#7683#7684#0" expanded="true" />
             <element signature="e#10440#10441#0" expanded="true" />
             <element signature="e#10608#10609#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LifeExamples.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="51" column="63" selection-start-line="51" selection-start-column="63" selection-end-line="51" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#557#558#0" expanded="true" />
-            <element signature="e#616#617#0" expanded="true" />
-            <element signature="e#842#843#0" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -18,7 +18,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         nextPattern.setEqualTo(pattern);
     }
 
-    Map gen(){
+    Map gen(){ // TODO: Represent life cells as points and only iterate through those and their surrounding dead cells instead of looping through everything
         generation++;
         nextPattern.setEqualTo(pattern);
         for (int i = 0; i < pattern.getWidth(); i++) { // 2D array iteration
@@ -291,7 +291,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
     private String getPatternFromFile(String fileContents){ // Only .rle files are supported.
         StringBuilder data = new StringBuilder();
         int pos = 0;
-        boolean commented = false;
+        boolean commented = false; // Also used for the rule line
         while (pos<fileContents.length()){
             char current = fileContents.charAt(pos);
             switch(current){
@@ -301,6 +301,12 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
                 case '\n':
                     if(commented){System.out.println();} // Separate comments
                     commented = false;
+                    break;
+                case 'x': // Cut out the rule line
+                    if(!commented){
+                        commented = true;
+                    }
+                    System.out.print(current);
                     break;
                 default:
                     if(!commented){
