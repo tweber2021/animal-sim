@@ -115,7 +115,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
                     break;
             }
             if(patternSelection>2){
-                patternText = LifeExamples.getExample(patternSelection-3);
+                patternText = getPatternFromFile(LifeExamples.getExample(patternSelection-3));
             }
             textArea.setText(patternText);
         });
@@ -240,7 +240,6 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         StringBuilder plaintext = new StringBuilder(); // Convert from RLE to plaintext.
         // Could be faster, but we don't need to worry about speed too much here since we're not constantly using this
         int repeat = 1;
-        System.out.println("Parsing...");
         int readPos = 0;
         while(readPos<RLEdata.length()){
             if(isNumber(RLEdata.charAt(readPos))){ // Look for repeat values
@@ -252,20 +251,19 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
                 readPos+=readAhead;
             }
             if(RLEdata.charAt(readPos)=='b'||RLEdata.charAt(readPos)=='o'||RLEdata.charAt(readPos)=='$'){
-                //System.out.print("["+repeat+"]");
                 for (int i = 0; i < repeat; i++) { // Repeat number of times the int specified
                     switch(RLEdata.charAt(readPos)){
                         case 'b': // Dead cell
                             plaintext.append(".");
-                            System.out.print(".");
+                            //System.out.print(".");
                             break;
                         case 'o': // Live cell
                             plaintext.append("O");
-                            System.out.print("O");
+                            //System.out.print("O");
                             break;
                         case '$': // Line break
                             plaintext.append("\n");
-                            System.out.println();
+                            //System.out.println();
                     }
                 }
             }
@@ -279,7 +277,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         return ((int)character >= 48 &&(int)character <= 57); // ASCII values 48-57 are digits 0-9
     }
 
-    private boolean isRLE(String data){ // Determine if a pattern is encoded in the RLE format to act on it accordingly.
+    private boolean isRLE(String data){ // Determine if a pattern is probably encoded in the RLE format to act on it accordingly.
         return (charInStr(data,'$')||charInStr(data,'b')||charInStr(data, '!'));
     }
 
@@ -288,5 +286,33 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
             if(str.charAt(i)==chr){return true;}
         }
         return false;
+    }
+
+    private String getPatternFromFile(String fileContents){ // Only .rle files are supported.
+        StringBuilder data = new StringBuilder();
+        int pos = 0;
+        boolean commented = false;
+        while (pos<fileContents.length()){
+            char current = fileContents.charAt(pos);
+            switch(current){
+                case '#':
+                    commented = true;
+                    break;
+                case '\n':
+                    if(commented){System.out.println();} // Separate comments
+                    commented = false;
+                    break;
+                default:
+                    if(!commented){
+                        data.append(current);
+                    }
+                    else{
+                        System.out.print(current); // Display comments in the console
+                }
+            }
+            pos++;
+        }
+        System.out.println();
+        return getFromRLE(data.toString());
     }
 }
