@@ -18,7 +18,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         nextPattern.setEqualTo(pattern);
     }
 
-    Map gen(){ // TODO: Represent life cells as points and only iterate through those and their surrounding dead cells instead of looping through everything
+    Map gen(){ // Possible Improvement: Represent life cells as points and only iterate through those and their surrounding dead cells instead of looping through everything
         generation++;
         nextPattern.setEqualTo(pattern);
         for (int i = 0; i < pattern.getWidth(); i++) { // 2D array iteration

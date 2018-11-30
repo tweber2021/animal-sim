@@ -4,17 +4,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 class LifeExamples { // Stores list of life examples and methods for easy access
-    /*private static String[] exampleTitles = new String[]{
-            "R-Pentomino",
-            "Gosper Glider Gun",
-            "Backrake",
-            "119P4H1V0",
-            "295P5H1V1",
-            "4-8-12 Diamond",
-            "Enterprise",
-            "Gliders by the Dozen",
-            "Orion"
-    };*/
+
     private static String[] exampleTitles = getExampleTitles();
 
     private static String getExamplePath(int ID){
