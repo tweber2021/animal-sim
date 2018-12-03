@@ -6,6 +6,8 @@ class SimWindow extends JFrame {
     private JTextArea sideTextArea;
     private String sideText;
     JButton fastForwardButton = new JButton("Fast Forward");
+    private JScrollPane scrollPane;
+    private boolean needsCentering = true;
 
     SimWindow(String title, int size){
         super(title); // Use JFrame constructor
@@ -35,12 +37,11 @@ class SimWindow extends JFrame {
         controlPanel.add(zoomSlider);
         controlPanel.add(fastForwardButton);
 
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension((int)(getScreenHeight()*0.7),(int)(getScreenHeight()*0.7)));
 
         Container pane = getContentPane();
         pane.add(scrollPane, BorderLayout.CENTER);
-        //pane.add(textArea, BorderLayout.CENTER);
         pane.add(sideTextArea, BorderLayout.EAST);
         pane.add(controlPanel, BorderLayout.SOUTH);
 
@@ -62,8 +63,18 @@ class SimWindow extends JFrame {
         setLocationRelativeTo(null); // Center
     }
 
-    void setMap(Map map){
+    void setMap(Map map) {
         textArea.setText(mapToText(map));
+        if(needsCentering){centerView();}
+    }
+
+    private void centerView(){
+        Rectangle bounds = scrollPane.getViewport().getViewRect();
+        Dimension size = scrollPane.getViewport().getViewSize();
+        int x = (size.width - bounds.width) / 2;
+        int y = (size.height - bounds.height) / 2;
+        scrollPane.getViewport().setViewPosition(new Point(x, y));
+        //needsCentering = false;
     }
 
     void sidePrintln(String line){sideText += " "+line+"\n";}
