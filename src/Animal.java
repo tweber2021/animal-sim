@@ -13,6 +13,7 @@ class Animal {
     // Establish constants for movement and attacks
     enum Move{UP, DOWN, LEFT, RIGHT, STAND}
     enum Attack{ROCK, PAPER, SCISSORS, NOTHING}
+    // enum Ability{SPEED, L2, L3, PACK, BLASTER, W3, BUILD, PIZZA, B3} // List of animal abilities. 2 character names are placeholders.
 
     Animal(int ID, int x, int y, Genes genes){
         this.genes = genes;

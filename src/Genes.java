@@ -35,7 +35,6 @@ class Genes {
 
     // TODO: Determine environment variable and action IDs, reading and interpreting conditionals, replication with mutations
 
-
     byte[] getCode(){
         return code;
     }
@@ -43,6 +42,19 @@ class Genes {
     byte getGene(int index){
         return code[index];
     }
+
+    Animal.Attack getAttack(char opponent){ // Return an animal's chosen attack based on the species
+        switch (opponent){
+            case 'L': return Animal.Attack.values()[getGene(LION_ATTACK)];
+            case 'W': return Animal.Attack.values()[getGene(WOLF_ATTACK)];
+            case 'B': return Animal.Attack.values()[getGene(BEAR_ATTACK)];
+            default: return Animal.Attack.values()[getGene(LION_ATTACK)];
+        }
+    }
+
+    // Animal.Ability getAbility(int abilityID){}
+
+
 
     /* Genes Binary Format
 
