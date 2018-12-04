@@ -15,22 +15,22 @@ class Animal {
     enum Attack{ROCK, PAPER, SCISSORS, NOTHING}
     // enum Ability{SPEED, L2, L3, PACK, BLASTER, W3, BUILD, PIZZA, B3} // List of animal abilities. 2 character names are placeholders.
 
-    Animal(int ID, int x, int y, Genes genes){
+    Animal(int ID, char symbol, int x, int y, Genes genes){
         this.genes = genes;
         this.x = x;
         this.y = y;
         this.ID = ID;
+        this.symbol = symbol;
         energy = 2000;
         alive = true;
-        symbol = 'A';
     }
 
     Move move(char[][] surroundings){
         return Move.STAND;
-    }
+    } // TODO: Interpret genes for movement
 
     Attack attack(char opponent){
-        return Attack.NOTHING;
+        return genes.getAttack(opponent);
     }
 
     final void die(){
@@ -60,10 +60,6 @@ class Animal {
 
     final char getSymbol(){
         return symbol;
-    }
-
-    final void setSymbol(char symbol){
-        this.symbol = symbol;
     }
 
     final int getEnergy(){

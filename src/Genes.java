@@ -4,21 +4,21 @@ class Genes {
     // Constants:
 
     // Offsets
-    final int VERSION = 4;
-    final int SKILL_1 = 9;
-    final int SKILL_2 = 10;
-    final int SKILL_3 = 11;
-    final int LION_ATTACK = 16;
-    final int WOLF_ATTACK = 17;
-    final int BEAR_ATTACK = 18;
+    private final static int VERSION = 4;
+    private final static int SKILL_1 = 9;
+    private final static int SKILL_2 = 10;
+    private final static int SKILL_3 = 11;
+    private final static int LION_ATTACK = 16;
+    private final static int WOLF_ATTACK = 17;
+    private final static int BEAR_ATTACK = 18;
 
     // Lengths
-    final int MAGIC_WORD_LENGTH = 4;
-    final int CONDITIONAL_LENGTH = 8;
+    private final static int MAGIC_WORD_LENGTH = 4;
+    private final static int CONDITIONAL_LENGTH = 8;
 
 
     // Genes
-    final byte[] TEMPLATE = new byte[]{ // Blank Slate
+    final static byte[] TEMPLATE = new byte[]{ // Blank Slate
             71, 69, 78, 69, // GENE
             0, // Version 0
             83, 80, 69, 67, // SPEC
@@ -35,15 +35,11 @@ class Genes {
 
     // TODO: Determine environment variable and action IDs, reading and interpreting conditionals, replication with mutations
 
-    byte[] getCode(){
-        return code;
-    }
-
-    byte getGene(int index){
+    private byte getGene(int index){
         return code[index];
     }
 
-    Animal.Attack getAttack(char opponent){ // Return an animal's chosen attack based on the species
+    Animal.Attack getAttack(char opponent){ // Return an animal's chosen attack based on the opposing species
         switch (opponent){
             case 'L': return Animal.Attack.values()[getGene(LION_ATTACK)];
             case 'W': return Animal.Attack.values()[getGene(WOLF_ATTACK)];

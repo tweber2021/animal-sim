@@ -24,14 +24,17 @@ class Game {
 
         for (int i = 0; i < animals.length; i++) {
             if (i < animals.length / 3) {
-                animals[i] = new Mouse(i, (int) (Math.random() * width), (int) (Math.random() * height), new Genes(new byte[]{0}));
-            } else if (i < (animals.length / 3) * 2) {
-                animals[i] = new Cat(i, (int) (Math.random() * width), (int) (Math.random() * height), new Genes(new byte[]{0}));
-            } else {
-                animals[i] = new Snake(i, (int) (Math.random() * width), (int) (Math.random() * height), new Genes(new byte[]{0}));
+                animals[i] = new Animal(i, 'c', (int) (Math.random() * width), (int) (Math.random() * height), new Genes(Genes.TEMPLATE));
+            }
+            else if(i < (animals.length / 3) * 2){
+                animals[i] = new Animal(i, 'm', (int) (Math.random() * width), (int) (Math.random() * height), new Genes(Genes.TEMPLATE));
+            }
+            else{
+                animals[i] = new Animal(i, 's', (int) (Math.random() * width), (int) (Math.random() * height), new Genes(Genes.TEMPLATE));
             }
         }
         GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),40, visible); // Don't prompt the user for a pattern if they don't watch
+        window.centerView();
 
         if (visible) {
             window.fastForwardButton.addActionListener(e -> {
