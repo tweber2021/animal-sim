@@ -6,6 +6,7 @@ class Animal {
     private int energy;
     private int ID;
     private int kills;
+    private int age;
     private char symbol;
     private boolean alive;
 
@@ -22,11 +23,13 @@ class Animal {
         this.ID = ID;
         this.symbol = symbol;
         energy = 2000;
+        age = 0;
         alive = true;
     }
 
     Move move(char[][] surroundings){
-        return genes.getMove(energy, surroundings);
+        age++;
+        return genes.getMove(energy, surroundings,age);
     }
 
     Attack attack(char opponent){
