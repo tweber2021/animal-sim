@@ -26,8 +26,8 @@ class Animal {
     }
 
     Move move(char[][] surroundings){
-        return Move.STAND;
-    } // TODO: Interpret genes for movement
+        return genes.getMove(energy, surroundings);
+    }
 
     Attack attack(char opponent){
         return genes.getAttack(opponent);
