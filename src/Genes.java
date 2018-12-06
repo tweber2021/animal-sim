@@ -100,10 +100,10 @@ class Genes {
 
     Genes(byte[] code){
         this.code = Arrays.copyOf(code,code.length); // Prevent all animals from having the same genes
-        this.mutate(0.5);
+        this.mutate(0.3);
     }
 
-    // TODO: Replication, chunk insertion/deletion mutations
+    // TODO: Replication, error-checking function
 
     private byte getGene(int index){
         return code[index];
@@ -192,6 +192,15 @@ class Genes {
     // Animal.Ability getAbility(int abilityID){}
 
     private void mutate(double mutationRate){
+        // Chunk insertion/deletion
+        if(Math.random()>mutationRate/10){
+            addChunk();
+        }
+        else if(Math.random()>mutationRate/15 && code.length>23){ // Cannot add and remove chunks at the same time
+            removeChunk();
+        }
+
+        // Simple Mutations
         for (int i = 0; i < MOVES_START; i++) {
             if(Math.random()>mutationRate && staticGeneRange[i]>0){
                 code[i] = (byte)(Math.random()*staticGeneRange[i]);
@@ -204,6 +213,26 @@ class Genes {
                 }
             }
         }
+    }
+
+    private void addChunk(/*int chunkID*/){
+        //int chunks = (code.length-23)/8;
+        //if(chunkID>=chunks){throw new IllegalArgumentException("Chunk "+chunkID+" is out of range "+chunks);}
+        byte[] extendedCode = new byte[code.length+8];
+        System.arraycopy(code, 0, extendedCode, 0, code.length);
+        for (int i = 0; i < 8; i++) {
+            extendedCode[code.length+i] = (byte)(Math.random()*moveChunkRange[i]);
+        }
+        code = Arrays.copyOf(extendedCode, extendedCode.length);
+    }
+
+    private void removeChunk(/*int chunkID*/){
+        //int chunks = (code.length-23)/8;
+        //if(chunkID>=chunks){throw new IllegalArgumentException("Chunk "+chunkID+" is out of range "+chunks);}
+        byte[] shortenedCode = new byte[code.length-8];
+        System.arraycopy(code, 0, shortenedCode, 0, code.length-8);
+        code = Arrays.copyOf(shortenedCode, shortenedCode.length);
+
     }
 
 
