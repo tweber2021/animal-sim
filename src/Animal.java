@@ -1,5 +1,6 @@
 class Animal {
 
+    private byte[] code;
     private Genes genes;
     private int x;
     private int y;
@@ -16,8 +17,8 @@ class Animal {
     enum Attack{ROCK, PAPER, SCISSORS, NOTHING}
     // enum Ability{SPEED, L2, L3, PACK, BLASTER, W3, BUILD, PIZZA, B3} // List of animal abilities. 2 character names are placeholders.
 
-    Animal(int ID, char symbol, int x, int y, Genes genes){
-        this.genes = genes;
+    Animal(int ID, char symbol, int x, int y, byte[] code){
+        this.genes = new Genes(code);
         this.x = x;
         this.y = y;
         this.ID = ID;

@@ -24,13 +24,13 @@ class Game {
 
         for (int i = 0; i < animals.length; i++) {
             if (i < animals.length / 3) {
-                animals[i] = new Animal(i, 'c', (int) (Math.random() * width), (int) (Math.random() * height), new Genes(Genes.TEMPLATE));
+                animals[i] = new Animal(i, 'c', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEMPLATE);
             }
             else if(i < (animals.length / 3) * 2){
-                animals[i] = new Animal(i, 'm', (int) (Math.random() * width), (int) (Math.random() * height), new Genes(Genes.TEST));
+                animals[i] = new Animal(i, 'm', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST);
             }
             else{
-                animals[i] = new Animal(i, 's', (int) (Math.random() * width), (int) (Math.random() * height), new Genes(Genes.TEST2));
+                animals[i] = new Animal(i, 's', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST2);
             }
         }
         GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),40, visible); // Don't prompt the user for a pattern if they don't watch

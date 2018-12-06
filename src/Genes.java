@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Genes {
     private byte[] code;
 
@@ -23,9 +25,27 @@ class Genes {
     private final static int SCALAR_2 = 6;
     private final static int ACTION = 7;
 
-    // TODO: Range limits
     private final static byte[] staticGeneRange = new byte[]{
-            // Individual byte gene limits go here
+            // Individual byte gene limits go here. Zero indicates no change on mutation.
+            0,0,0,0, // GENE
+            0, // VERSION
+            0,0,0,0, // SPEC
+            0,0,0, // Skills, no change for now
+            0,0,0,0, // ATCK
+            3,3,3, // Attacks
+            0,0,0,0, // MOVE
+    };
+
+    private final static byte[] moveChunkRange = new byte[]{
+            // Individual byte gene limits go here. Zero indicates no change on mutation.
+            3, // Conditional types
+            20, // 20 environment variables
+            4, // 4 comparison operators
+            Byte.MAX_VALUE, // Scalar range
+            20, // 20 environment variables
+            4, // 4 comparison operators
+            Byte.MAX_VALUE, // Scalar range
+            5 // 8 different actions, but we're excluding special moves
     };
 
     // Genes
@@ -40,7 +60,7 @@ class Genes {
             // Empty MOVE chunk
     };
 
-    final static byte[] TEST = new byte[]{
+    final static byte[] TEST = new byte[]{ // Always move up
             71, 69, 78, 69, // GENE
             0, // Version 0
             83, 80, 69, 67, // SPEC
@@ -54,7 +74,7 @@ class Genes {
             1 // Move up
     };
 
-    final static byte[] TEST2 = new byte[]{
+    final static byte[] TEST2 = new byte[]{ // Alternate between moving right and down
             71, 69, 78, 69, // GENE
             0, // Version 0
             83, 80, 69, 67, // SPEC
@@ -79,10 +99,11 @@ class Genes {
     };
 
     Genes(byte[] code){
-        this.code = code;
+        this.code = Arrays.copyOf(code,code.length); // Prevent all animals from having the same genes
+        this.mutate(0.5);
     }
 
-    // TODO: Replication with mutations
+    // TODO: Replication, chunk insertion/deletion mutations
 
     private byte getGene(int index){
         return code[index];
@@ -161,14 +182,27 @@ class Genes {
     }
 
     private byte getChunkVal(int chunkNum, int relativePos){ // Get the offset for a value in a move chunk
-        return getGene(MOVES_START+(chunkNum*8)+relativePos);
+        return getGene(getAbsPos(chunkNum,relativePos));
+    }
+
+    private int getAbsPos(int chunkNum, int relativePos){
+        return MOVES_START+(chunkNum*8)+relativePos;
     }
 
     // Animal.Ability getAbility(int abilityID){}
 
-    void mutate(/*double mutationRate*/){
-        for (int i = 0; i < code.length; i++) {
-            // TODO
+    private void mutate(double mutationRate){
+        for (int i = 0; i < MOVES_START; i++) {
+            if(Math.random()>mutationRate && staticGeneRange[i]>0){
+                code[i] = (byte)(Math.random()*staticGeneRange[i]);
+            }
+        }
+        for (int i = 0; i < (code.length - MOVES_START)/8; i++) { // Iterate through movement chunks
+            for (int j = 0; j < 8; j++) {
+                if(Math.random()<mutationRate){ // Everything in the movement chunk is subject to mutation
+                    code[getAbsPos(i,j)] = (byte)(Math.random()*moveChunkRange[j]);
+                }
+            }
         }
     }
 
