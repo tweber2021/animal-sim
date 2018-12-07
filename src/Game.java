@@ -1,7 +1,7 @@
 class Game {
     private boolean fastForward = false; // give our toggle speed method access to the speed
     private boolean visible;
-    private static char[] TEAMS = new char[]{'s', 'm', 'c'};
+    private static char[] TEAMS = new char[]{'W', 'B', 'L'};
 
     Game(boolean visible) {
         this.visible = visible;
@@ -24,13 +24,13 @@ class Game {
 
         for (int i = 0; i < animals.length; i++) {
             if (i < animals.length / 3) {
-                animals[i] = new Animal(i, 'c', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEMPLATE);
+                animals[i] = new Animal(i, 'L', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEMPLATE);
             }
             else if(i < (animals.length / 3) * 2){
-                animals[i] = new Animal(i, 'm', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST);
+                animals[i] = new Animal(i, 'B', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST);
             }
             else{
-                animals[i] = new Animal(i, 's', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST2);
+                animals[i] = new Animal(i, 'W', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST2);
             }
         }
         GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),40, visible); // Don't prompt the user for a pattern if they don't watch
@@ -183,7 +183,7 @@ class Game {
     private static boolean rockPaperScissors(Animal.Attack attack, Animal.Attack defense) { // Returns whether the attacker wins
         if (attack == defense) {
             return Math.random() > 0.5;
-        } // 50/50 if there's a tie
+        } // 50/50 if there'W a tie
         switch (attack) {
             case ROCK:
                 return defense == Animal.Attack.SCISSORS;
@@ -225,21 +225,21 @@ class Game {
         return maxKills;
     }
 
-    private static void refreshSideText(Animal[] animals, GameOfLife conway, SimWindow window) { // At least it's easy to debug ¯\_(ツ)_/¯
+    private static void refreshSideText(Animal[] animals, GameOfLife conway, SimWindow window) { // At least it'W easy to debug ¯\_(ツ)_/¯
         window.clearSideText();
         window.sidePrintln("Animal Simulation");
         window.sidePrintln(countAlive(animals) + " Alive", 1);
-        window.sidePrintln(countAlive(animals, 'm') + " Mice");
-        window.sidePrintln(countAlive(animals, 'c') + " Cats");
-        window.sidePrintln(countAlive(animals, 's') + " Snakes");
+        window.sidePrintln(countAlive(animals, 'B') + " Bears");
+        window.sidePrintln(countAlive(animals, 'L') + " Lions");
+        window.sidePrintln(countAlive(animals, 'W') + " Wolves");
         window.sidePrintln("Highest Energy Left", 1);
-        window.sidePrintln("Mice: " + getTeamMaxEnergy(animals, 'm') + " E");
-        window.sidePrintln("Cats: " + getTeamMaxEnergy(animals, 'c') + " E");
-        window.sidePrintln("Snakes: " + getTeamMaxEnergy(animals, 's') + " E");
+        window.sidePrintln("Bears: " + getTeamMaxEnergy(animals, 'B') + " E");
+        window.sidePrintln("Lions: " + getTeamMaxEnergy(animals, 'L') + " E");
+        window.sidePrintln("Wolves: " + getTeamMaxEnergy(animals, 'W') + " E");
         window.sidePrintln("Highest Kills", 1);
-        window.sidePrintln("Mice: "+ getTeamMaxKills(animals, 'm'));
-        window.sidePrintln("Cats: "+ getTeamMaxKills(animals, 'c'));
-        window.sidePrintln("Snakes: "+ getTeamMaxKills(animals, 's'));
+        window.sidePrintln("Bears: "+ getTeamMaxKills(animals, 'B'));
+        window.sidePrintln("Lions: "+ getTeamMaxKills(animals, 'L'));
+        window.sidePrintln("Wolves: "+ getTeamMaxKills(animals, 'W'));
         window.sidePrintln("Game Of Life", 1);
         window.sidePrintln("Generation: "+conway.getGeneration());
         window.sidePrintln("Population: "+conway.getPopulation());
