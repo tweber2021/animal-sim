@@ -48,7 +48,7 @@ class Game {
                 animals[i] = new Animal(i, 'B', (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
             }
         }
-        GameOfLife conway = new GameOfLife(map.getWidth(), map.getHeight(), 40, visible); // Don't prompt the user for a pattern if they don't watch
+        GameOfLife conway = new GameOfLife(map.getWidth(), map.getHeight(), map.getWidth()/5, visible); // Don't prompt the user for a pattern if they don't watch
         window.centerView();
 
         if (visible) {

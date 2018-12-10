@@ -30,7 +30,7 @@ class Animal {
     // TODO: Abilities
 
     Animal(Animal otherAnimal){ // Clone an animal
-        this.genes = new Genes(otherAnimal.genes.getCode(),0);
+        this.genes = new Genes(otherAnimal.genes.getCode());
         this.x = otherAnimal.x;
         this.y = otherAnimal.y;
         this.ID = otherAnimal.ID;

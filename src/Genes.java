@@ -100,7 +100,6 @@ class Genes {
 
     Genes(byte[] code){
         this.code = Arrays.copyOf(code,code.length); // Prevent all animals from having the same genes
-        this.mutate(0.2);
     }
 
     Genes(byte[] code, double mutationRate){
