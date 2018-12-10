@@ -93,9 +93,7 @@ class Game {
             window.fastForwardButton.setEnabled(false);
             window.updateSideText();
         }
-        if (open) {
-            System.out.println("Winner: " + getWinner(animals));
-        }
+        addWinnersToPlacement(animals);
         return placement;
     }
 
@@ -226,6 +224,14 @@ class Game {
         return numTeams;
     }
 
+    private void addWinnersToPlacement(Animal[] animals){
+        for (Animal animal : animals) {
+            if (animal.isAlive()) {
+                addToPlacement(animal);
+            }
+        }
+    }
+
     private static int getTeamMaxEnergy(Animal[] animals, char team) { // Get the energy of the animal with the most energy on the team
         int maxEnergy = 0;
         for (Animal animal : animals) {
@@ -272,15 +278,6 @@ class Game {
         fastForward = !fastForward;
     }
 
-    private char getWinner(Animal[] animals) {
-        for (char team : TEAMS) {
-            if (countAlive(animals, team) > 0) {
-                return team;
-            }
-        }
-        return ' ';
-    }
-
     private void doConwayStuff(Animal[] animals, Map map, GameOfLife conway) {
         map.overlay(conway.gen());
         for (Animal animal : animals) {
@@ -293,7 +290,7 @@ class Game {
     }
 
     private void addToPlacement(Animal animal){
-        placement[placementPos] = animal;
+        placement[placementPos] = new Animal(animal);
         placementPos++;
     }
 }

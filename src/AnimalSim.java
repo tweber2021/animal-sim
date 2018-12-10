@@ -11,7 +11,7 @@ public class AnimalSim {
         AtomicBoolean running = new AtomicBoolean(false);
         Genes[] genePool = new Genes[1200];
         for (int i = 0; i < genePool.length; i++) {
-            genePool[i] = new Genes(Genes.TEMPLATE, 0);
+            genePool[i] = new Genes(Genes.TEMPLATE, 10);
         }
 
         // Starting Menu
@@ -54,8 +54,7 @@ public class AnimalSim {
                 demoButton.setText("Running...");
 
                 Animal[] placement = new Game(true, 200, 1200).run(genePool);
-                System.out.println(placement[1199].getSymbol());
-                // TODO: Fix uninitialized array
+                System.out.println("'"+placement[1199].getSymbol()+"' "+placement[1199].getID()+" wins!");
 
                 demoButton.setEnabled(true);
                 demoButton.setText("Run Simulation");

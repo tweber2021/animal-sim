@@ -103,7 +103,7 @@ class Genes {
         this.mutate(0.2);
     }
 
-    Genes(byte[] code, int mutationRate){
+    Genes(byte[] code, double mutationRate){
         this.code = Arrays.copyOf(code,code.length); // Prevent all animals from having the same genes
         this.mutate(mutationRate);
     }
@@ -200,7 +200,7 @@ class Genes {
 
     // Animal.Ability getAbility(int abilityID){}
 
-    private void mutate(double mutationRate){ // TODO: Make mutation rates actually work
+    private void mutate(double mutationRate){
         // Chunk insertion/deletion
         if(Math.random()<mutationRate/10){
             addChunk();

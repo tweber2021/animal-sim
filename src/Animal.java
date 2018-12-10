@@ -27,6 +27,20 @@ class Animal {
         alive = true;
     }
 
+    // TODO: Abilities
+
+    Animal(Animal otherAnimal){ // Clone an animal
+        this.genes = new Genes(otherAnimal.genes.getCode(),0);
+        this.x = otherAnimal.x;
+        this.y = otherAnimal.y;
+        this.ID = otherAnimal.ID;
+        this.symbol = otherAnimal.symbol;
+        this.energy = otherAnimal.energy;
+        this.kills = otherAnimal.kills;
+        this.age = otherAnimal.age;
+        this.alive = otherAnimal.alive;
+    }
+
     Move move(char[][] surroundings){
         age++;
         return genes.getMove(energy, surroundings,age);
