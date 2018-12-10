@@ -1,6 +1,5 @@
 class Animal {
 
-    private byte[] code;
     private Genes genes;
     private int x;
     private int y;

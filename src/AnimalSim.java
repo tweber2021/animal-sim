@@ -1,32 +1,37 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AnimalSim {
+    private static boolean looping = true; // When set to false, stop running the program
     public static void main(String args[]){
+        AtomicBoolean running = new AtomicBoolean(false);
 
         // Starting Menu
-        JFrame dialog = new JFrame("AnimalSim Menu");
+        JFrame dialog = new JFrame("AnimalSim - Settings"); // TODO: Make this a settings picker eventually
         dialog.setResizable(false);
         dialog.getContentPane().setBackground(new Color(15,15,15));
         dialog.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        dialog.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                looping = false;
+            }
+        });
 
         // Starting text
         JLabel dialogText = new JLabel("Welcome to AnimalSim!",SwingConstants.CENTER); // center text
         dialogText.setForeground(new Color(0,255,0));
 
         // Demo Button
-        JButton demoButton = new JButton("Play Demo");
+        JButton demoButton = new JButton("Run Simulation");
         demoButton.setPreferredSize(new Dimension(200,50));
         demoButton.setFocusPainted(false);
         demoButton.setBorder(null);
         demoButton.setBackground(new Color(31,31,31));
         demoButton.setForeground(new Color(0,255,0));
-        demoButton.addActionListener(e -> {
-            // We need a new thread for this if we want both windows open at once.
-            // As a side-effect, we can run as many games as we want simultaneously. That's fine.
-            Thread demo = new Thread(() -> new Game(true).run());
-            demo.start();
-        });
+        demoButton.addActionListener(e -> running.set(true));
 
         dialog.add(dialogText);
         dialog.add(demoButton);
@@ -37,5 +42,16 @@ public class AnimalSim {
         dialog.pack();
         dialog.setLocationRelativeTo(null); // Center
         dialog.setVisible(true);
+
+        while(looping){
+        if(running.get()){
+            demoButton.setEnabled(false);
+            demoButton.setText("Running...");
+            new Game(true).run();
+            demoButton.setEnabled(true);
+            demoButton.setText("Run Simulation");
+            running.set(false);
+        }
+        }
     }
 }

@@ -1,85 +1,96 @@
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 class Game {
-    private boolean fastForward = false; // give our toggle speed method access to the speed
+    private boolean fastForward; // give our toggle speed method access to the speed
     private boolean visible;
-    private static char[] TEAMS = new char[]{'W', 'B', 'L'};
+    private static char[] TEAMS = new char[]{'B', 'W', 'L'};
+    private boolean open;
 
     Game(boolean visible) {
         this.visible = visible;
+        fastForward = false;
+        open = true;
     }
 
-    void run() { // Future (outside of demo build): return array of top genes to be manipulated
-        int width = 200;
-        int height = (int)(0.4375*width);
-        SimWindow window = new SimWindow("AnimalSim",width); // construct a SimWindow, 7:16 textbox ratio
-        Map map = new Map(width,height);
+    void run() { // Run games for a certain number of iterations
+            int width = 200;
+            int height = (int) (0.4375 * width);
+            SimWindow window = new SimWindow("AnimalSim", width); // construct a SimWindow, 7:16 textbox ratio
+            Map map = new Map(width, height);
 
-        if (visible) {
-            window.setVisible(true);
-            window.setClosable(false); // Don't allow the user to close the window while taking pattern input
-            window.setMap(map);
-            window.sidePrintln("Animal Simulation");
-        }
-
-        Animal[] animals = new Animal[1200];
-
-        for (int i = 0; i < animals.length; i++) {
-            if (i < animals.length / 3) {
-                animals[i] = new Animal(i, 'L', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEMPLATE);
-            }
-            else if(i < (animals.length / 3) * 2){
-                animals[i] = new Animal(i, 'B', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST);
-            }
-            else{
-                animals[i] = new Animal(i, 'W', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST2);
-            }
-        }
-        GameOfLife conway = new GameOfLife(map.getWidth(),map.getHeight(),40, visible); // Don't prompt the user for a pattern if they don't watch
-        window.centerView();
-
-        if (visible) {
-            window.fastForwardButton.addActionListener(e -> {
-                toggleSpeed();
-                if (window.fastForwardButton.getText().equals("Fast Forward")) {
-                    window.fastForwardButton.setText("Normal Speed");
-                } else {
-                    window.fastForwardButton.setText("Fast Forward");
-                }
-            });
-            window.setClosable(true);
-        }
-
-        while (remainingTeams(animals) > 1) { // Check if at least two teams are playing
-            long time = System.currentTimeMillis();
-            for (Animal animal : animals) {
-                if (animal.isAlive()) {
-                    refreshMap(map, animals);
-                    moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
-                }
-            }
-
-            // Refresh display
-            refreshMap(map, animals);
-            doConwayStuff(animals,map,conway);
             if (visible) {
+                window.setVisible(true);
+                window.setClosable(false); // Don't allow the user to close the window while taking pattern input
                 window.setMap(map);
-                refreshSideText(animals, conway, window);
+                window.sidePrintln("Animal Simulation");
+                window.addWindowListener(new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                        open = false;
+                    }
+                });
             }
-            map.clear();
 
-            if (!fastForward && visible) {
-                wait((int) (80 - (System.currentTimeMillis() - time)));
-            } // Let 80ms pass before the next moves
+            Animal[] animals = new Animal[1200];
+
+            for (int i = 0; i < animals.length; i++) {
+                if (i < animals.length / 3) {
+                    animals[i] = new Animal(i, 'L', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEMPLATE);
+                } else if (i < (animals.length / 3) * 2) {
+                    animals[i] = new Animal(i, 'W', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST);
+                } else {
+                    animals[i] = new Animal(i, 'B', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST2);
+                }
+            }
+            GameOfLife conway = new GameOfLife(map.getWidth(), map.getHeight(), 40, visible); // Don't prompt the user for a pattern if they don't watch
+            window.centerView();
+
+            if (visible) {
+                window.fastForwardButton.addActionListener(e -> {
+                    toggleSpeed();
+                    if (window.fastForwardButton.getText().equals("Fast Forward")) {
+                        window.fastForwardButton.setText("Normal Speed");
+                    } else {
+                        window.fastForwardButton.setText("Fast Forward");
+                    }
+                });
+                window.setClosable(true);
+            }
+
+            while (open && remainingTeams(animals) > 1) { // Check if at least two teams are playing
+                long time = System.currentTimeMillis();
+                for (Animal animal : animals) {
+                    if (animal.isAlive()) {
+                        refreshMap(map, animals);
+                        moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
+                    }
+                }
+
+                // Refresh display
+                refreshMap(map, animals);
+                doConwayStuff(animals, map, conway);
+                if (visible) {
+                    window.setMap(map);
+                    refreshSideText(animals, conway, window);
+                }
+                map.clear();
+
+                if (!fastForward && visible) {
+                    wait((int) (80 - (System.currentTimeMillis() - time)));
+                } // Let 80ms pass before the next moves
+            }
+            if (visible) {
+                refreshMap(map, animals);
+                doConwayStuff(animals, map, conway);
+                window.setMap(map);
+                window.sidePrintln("Game Over", 2);
+                window.fastForwardButton.setEnabled(false);
+                window.updateSideText();
+            }
+            if(open) {
+                System.out.println("Winner: " + getWinner(animals));
+            }
         }
-        if (visible) {
-            refreshMap(map, animals);
-            doConwayStuff(animals,map,conway);
-            window.setMap(map);
-            window.sidePrintln("Game Over", 2);
-            window.fastForwardButton.setEnabled(false);
-            window.updateSideText();
-        }
-        System.out.println("Winner: "+getWinner(animals));
-    }
 
     private static int countAlive(Animal[] animals) {
         int count = 0;
@@ -183,7 +194,7 @@ class Game {
     private static boolean rockPaperScissors(Animal.Attack attack, Animal.Attack defense) { // Returns whether the attacker wins
         if (attack == defense) {
             return Math.random() > 0.5;
-        } // 50/50 if there'W a tie
+        } // 50/50 if there's a tie
         switch (attack) {
             case ROCK:
                 return defense == Animal.Attack.SCISSORS;
@@ -225,21 +236,21 @@ class Game {
         return maxKills;
     }
 
-    private static void refreshSideText(Animal[] animals, GameOfLife conway, SimWindow window) { // At least it'W easy to debug ¯\_(ツ)_/¯
+    private static void refreshSideText(Animal[] animals, GameOfLife conway, SimWindow window) { // At least it's easy to debug ¯\_(ツ)_/¯
         window.clearSideText();
         window.sidePrintln("Animal Simulation");
         window.sidePrintln(countAlive(animals) + " Alive", 1);
-        window.sidePrintln(countAlive(animals, 'B') + " Bears");
-        window.sidePrintln(countAlive(animals, 'L') + " Lions");
         window.sidePrintln(countAlive(animals, 'W') + " Wolves");
+        window.sidePrintln(countAlive(animals, 'L') + " Lions");
+        window.sidePrintln(countAlive(animals, 'B') + " Bears");
         window.sidePrintln("Highest Energy Left", 1);
-        window.sidePrintln("Bears: " + getTeamMaxEnergy(animals, 'B') + " E");
-        window.sidePrintln("Lions: " + getTeamMaxEnergy(animals, 'L') + " E");
         window.sidePrintln("Wolves: " + getTeamMaxEnergy(animals, 'W') + " E");
+        window.sidePrintln("Lions: " + getTeamMaxEnergy(animals, 'L') + " E");
+        window.sidePrintln("Bears: " + getTeamMaxEnergy(animals, 'B') + " E");
         window.sidePrintln("Highest Kills", 1);
-        window.sidePrintln("Bears: "+ getTeamMaxKills(animals, 'B'));
-        window.sidePrintln("Lions: "+ getTeamMaxKills(animals, 'L'));
         window.sidePrintln("Wolves: "+ getTeamMaxKills(animals, 'W'));
+        window.sidePrintln("Lions: "+ getTeamMaxKills(animals, 'L'));
+        window.sidePrintln("Bears: "+ getTeamMaxKills(animals, 'B'));
         window.sidePrintln("Game Of Life", 1);
         window.sidePrintln("Generation: "+conway.getGeneration());
         window.sidePrintln("Population: "+conway.getPopulation());
