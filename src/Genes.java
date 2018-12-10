@@ -100,13 +100,22 @@ class Genes {
 
     Genes(byte[] code){
         this.code = Arrays.copyOf(code,code.length); // Prevent all animals from having the same genes
-        this.mutate(1);
+        this.mutate(0.2);
+    }
+
+    Genes(byte[] code, int mutationRate){
+        this.code = Arrays.copyOf(code,code.length); // Prevent all animals from having the same genes
+        this.mutate(mutationRate);
     }
 
     // TODO: Replication, error-checking function
 
     private byte getGene(int index){
         return code[index];
+    }
+
+    byte[] getCode(){
+        return code;
     }
 
     Animal.Attack getAttack(char opponent){ // Return an animal's chosen attack based on the opposing species
@@ -191,18 +200,18 @@ class Genes {
 
     // Animal.Ability getAbility(int abilityID){}
 
-    private void mutate(double mutationRate){
+    private void mutate(double mutationRate){ // TODO: Make mutation rates actually work
         // Chunk insertion/deletion
-        if(Math.random()>mutationRate/10){
+        if(Math.random()<mutationRate/10){
             addChunk();
         }
-        else if(Math.random()>mutationRate/15 && code.length>23){ // Cannot add and remove chunks at the same time
+        else if(Math.random()<mutationRate/15 && code.length>23){ // Cannot add and remove chunks at the same time
             removeChunk();
         }
 
         // Simple Mutations
         for (int i = 0; i < MOVES_START; i++) {
-            if(Math.random()>mutationRate && staticGeneRange[i]>0){
+            if(Math.random()<mutationRate && staticGeneRange[i]>0){
                 code[i] = (byte)(Math.random()*staticGeneRange[i]);
             }
         }

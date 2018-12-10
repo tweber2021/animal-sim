@@ -6,15 +6,18 @@ class Game {
     private boolean visible;
     private static char[] TEAMS = new char[]{'B', 'W', 'L'};
     private boolean open;
+    private int width;
+    private int numAnimals;
 
-    Game(boolean visible) {
+    Game(boolean visible, int width, int numAnimals) {
         this.visible = visible;
+        this.width = width;
+        this.numAnimals = numAnimals;
         fastForward = false;
         open = true;
     }
 
-    void run() { // Run games for a certain number of iterations
-            int width = 200;
+    void run(Genes[] genePool) { // Run games for a certain number of iterations
             int height = (int) (0.4375 * width);
             SimWindow window = new SimWindow("AnimalSim", width); // construct a SimWindow, 7:16 textbox ratio
             Map map = new Map(width, height);
@@ -31,15 +34,15 @@ class Game {
                 });
             }
 
-            Animal[] animals = new Animal[1200];
+            Animal[] animals = new Animal[numAnimals];
 
             for (int i = 0; i < animals.length; i++) {
                 if (i < animals.length / 3) {
-                    animals[i] = new Animal(i, 'L', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEMPLATE);
+                    animals[i] = new Animal(i, 'L', (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
                 } else if (i < (animals.length / 3) * 2) {
-                    animals[i] = new Animal(i, 'W', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST);
+                    animals[i] = new Animal(i, 'W', (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
                 } else {
-                    animals[i] = new Animal(i, 'B', (int) (Math.random() * width), (int) (Math.random() * height), Genes.TEST2);
+                    animals[i] = new Animal(i, 'B', (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
                 }
             }
             GameOfLife conway = new GameOfLife(map.getWidth(), map.getHeight(), 40, visible); // Don't prompt the user for a pattern if they don't watch

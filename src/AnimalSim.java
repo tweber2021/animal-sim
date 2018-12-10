@@ -8,6 +8,10 @@ public class AnimalSim {
     private static boolean looping = true; // When set to false, stop running the program
     public static void main(String args[]){
         AtomicBoolean running = new AtomicBoolean(false);
+        Genes[] genePool = new Genes[1200];
+        for (int i = 0; i < genePool.length; i++) {
+            genePool[i] = new Genes(Genes.TEMPLATE, 0);
+        }
 
         // Starting Menu
         JFrame dialog = new JFrame("AnimalSim - Settings"); // TODO: Make this a settings picker eventually
@@ -47,7 +51,7 @@ public class AnimalSim {
         if(running.get()){
             demoButton.setEnabled(false);
             demoButton.setText("Running...");
-            new Game(true).run();
+            new Game(true,200,1200).run(genePool);
             demoButton.setEnabled(true);
             demoButton.setText("Run Simulation");
             running.set(false);
