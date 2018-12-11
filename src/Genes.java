@@ -250,7 +250,9 @@ class Genes {
         for (int i = 0; i < leaderboard.length / 100; i++) {
             for (int j = 0; j < 100; j++) {
                 int newPos = 1199-((i*100)+j);
-                double mutationRate = ((newPos/(double)leaderboard.length)*maxMutationRate);
+                //System.out.println(maxMutationRate+" max");
+                double mutationRate = ((double)newPos/leaderboard.length*maxMutationRate);
+                //System.out.println("m "+mutationRate);
                 Genes newGenes = new Genes(leaderboard[i].getGenes().getCode());
                 newGenes.mutate(mutationRate);
                 result[(i*100)+j] = new Animal(newPos,leaderboard[i].getSymbol(),leaderboard[i].getX(),leaderboard[i].getY(),newGenes);

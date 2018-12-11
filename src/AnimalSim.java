@@ -14,7 +14,7 @@ public class AnimalSim {
         AtomicBoolean reset = new AtomicBoolean(false);
         Genes[] genePool = new Genes[1200];
         for (int i = 0; i < genePool.length; i++) {
-            genePool[i] = new Genes(Genes.TEST2, 0.2);
+            genePool[i] = new Genes(Genes.TEMPLATE);
         }
 
         // Starting Menu
@@ -49,7 +49,7 @@ public class AnimalSim {
             for (int i = 0; i < genePool.length; i++) {
                 mutationRate.set((double) (mutationSlider.getValue()) / 100);
                 mutationText.setText("Mutation Rate: "+(int)(mutationRate.get() *100)+"%");
-                genePool[i] = new Genes(Genes.TEST2, mutationRate.get());
+                genePool[i] = new Genes(Genes.TEMPLATE);
             }
         });
 
@@ -139,7 +139,7 @@ public class AnimalSim {
                 for (int i = 0; i < generations.get(); i++) {
                     if(reset.get()){
                         for (int j = 0; j < genePool.length; j++) {
-                            genePool[j] = new Genes(Genes.TEST2, 0.2);
+                            genePool[j] = new Genes(Genes.TEMPLATE);
                         }
                         resetButton.setText("Exit");
                         resetButton.setEnabled(true);
@@ -158,9 +158,10 @@ public class AnimalSim {
                         System.out.print(placement[1199].getCode()[j]+" ");
                     }
                     System.out.println();
-                    placement = Genes.mutateAnimals(placement, mutationRate.get());
-                    for (Animal aPlacement : placement) {
-                        genePool[i] = new Genes(aPlacement.getCode());
+                    // TODO: mutationRate.get() == 0, mutations not working in general
+                    Animal[] mutatedAnimals = Genes.mutateAnimals(placement, 0.5/*mutationRate.get()*/);
+                    for (Animal aMutatedAnimals : mutatedAnimals) {
+                        genePool[i] = new Genes(aMutatedAnimals.getCode());
                     }
                 }
 

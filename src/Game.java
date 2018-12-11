@@ -201,7 +201,7 @@ class Game {
 
     private static boolean rockPaperScissors(Animal.Attack attack, Animal.Attack defense) { // Returns whether the attacker wins
         if (attack == defense) {
-            return Math.random() > 0.5;
+            return true; // Attacker has advantage
         } // 50/50 if there's a tie
         switch (attack) {
             case ROCK:
