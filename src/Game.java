@@ -166,7 +166,7 @@ class Game {
             animal.setEnergy(animal.getEnergy() - 10);
         } // Lose energy, sleeping uses less
         else {
-            animal.setEnergy(animal.getEnergy() - 3);
+            animal.setEnergy(animal.getEnergy() - 5);
         }
 
         int destID = map.readID(desiredX, desiredY);
@@ -176,12 +176,12 @@ class Game {
             if (rockPaperScissors(animal.attack(defender.getSymbol()), defender.attack(animal.getSymbol()))) { // If the attacker (this animal) wins
                 addToPlacement(defender);
                 defender.die();
-                animal.setEnergy(animal.getEnergy() + defender.getEnergy() / 2); // Winner gets half of the opponents energy
+                animal.setEnergy((int) (animal.getEnergy() + defender.getEnergy() * 0.80)); // Winner gets half of the opponents energy
                 animal.incKills();
             } else {
                 addToPlacement(animal);
                 animal.die();
-                defender.setEnergy(defender.getEnergy() + animal.getEnergy() / 2);
+                defender.setEnergy((int) (defender.getEnergy() + animal.getEnergy() * 0.80));
                 defender.incKills();
             } // Otherwise, RIP
         }

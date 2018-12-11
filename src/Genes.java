@@ -201,10 +201,10 @@ class Genes {
 
     private void mutate(double mutationRate){
         // Chunk insertion/deletion
-        if(Math.random()<mutationRate/3){
+        if(Math.random()<mutationRate/5){
             addChunk();
         }
-        else if(Math.random()<mutationRate/8 && code.length>23){ // Cannot add and remove chunks at the same time
+        else if(Math.random()<mutationRate/10 && code.length>23){ // Cannot add and remove chunks at the same time
             removeChunk();
         }
 
@@ -243,7 +243,7 @@ class Genes {
 
     }
 
-    // TODO: Make fitness based on kills, since placement doesn't create interesting results
+    // TODO: Make results more interesting, make sure evolution is actually happening, separate animals into 3 gene pools
 
     static Animal[] mutateAnimals(Animal[] leaderboard, double maxMutationRate){
         Animal[] result = new Animal[leaderboard.length];
