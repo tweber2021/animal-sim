@@ -247,15 +247,14 @@ class Genes {
 
     static Animal[] mutateAnimals(Animal[] leaderboard, double maxMutationRate){
         Animal[] result = new Animal[leaderboard.length];
-        for (int i = 0; i < leaderboard.length / 100; i++) {
-            for (int j = 0; j < 100; j++) {
-                int newPos = 1199-((i*100)+j);
-                //System.out.println(maxMutationRate+" max");
+        for (int i = 0; i < leaderboard.length / 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                int newPos = 1199-((i*10)+j);
                 double mutationRate = ((double)newPos/leaderboard.length*maxMutationRate);
                 //System.out.println("m "+mutationRate);
                 Genes newGenes = new Genes(leaderboard[i].getGenes().getCode());
                 newGenes.mutate(mutationRate);
-                result[(i*100)+j] = new Animal(newPos,leaderboard[i].getSymbol(),leaderboard[i].getX(),leaderboard[i].getY(),newGenes);
+                result[(i*10)+j] = new Animal(newPos,leaderboard[i].getSymbol(),leaderboard[i].getX(),leaderboard[i].getY(),newGenes.getCode());
             }
         }
         return result;

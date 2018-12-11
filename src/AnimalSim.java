@@ -153,15 +153,16 @@ public class AnimalSim {
 
                     // Main loop
                     Animal[] placement = new Game(isVisible, 200, 1200).run(genePool);
-                    System.out.println("'"+placement[1199].getSymbol()+"' "+placement[1199].getID()+" wins!");
+                    System.out.print("'"+placement[1199].getSymbol()+"' "+placement[1199].getID()+" wins! Code: ");
                     for (int j = 0; j < placement[1199].getCode().length; j++) {
                         System.out.print(placement[1199].getCode()[j]+" ");
                     }
-                    System.out.println();
-                    // TODO: mutationRate.get() == 0, mutations not working in general
+                    System.out.println("  ("+(placement[1199].getCode().length-23)/8+")"); // Print number of chunks
+                    // TODO: mutationRate.get() == 0
+                    //System.out.println("Mrt = "+mutationRate.get());
                     Animal[] mutatedAnimals = Genes.mutateAnimals(placement, 0.5/*mutationRate.get()*/);
-                    for (Animal aMutatedAnimals : mutatedAnimals) {
-                        genePool[i] = new Genes(aMutatedAnimals.getCode());
+                    for (int j = 0; j < mutatedAnimals.length; j++) {
+                        genePool[j] = mutatedAnimals[j].getGenes();
                     }
                 }
 
