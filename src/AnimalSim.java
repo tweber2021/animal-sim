@@ -4,6 +4,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AnimalSim {
     private static boolean looping = true; // When set to false, stop running the program
@@ -37,17 +38,18 @@ public class AnimalSim {
         demoButton.addActionListener(e -> running.set(true));
 
         // Mutation Text
-        JLabel mutationText = new JLabel("Mutation Rate: 25%", SwingConstants.CENTER);
+        JLabel mutationText = new JLabel("Mutation Rate: 50%", SwingConstants.CENTER);
         mutationText.setForeground(new Color(0, 255, 0));
 
         // Mutation Rate Slider
-        JSlider mutationSlider = new JSlider(JSlider.HORIZONTAL,1,99,25);
+        AtomicReference<Double> mutationRate = new AtomicReference<>((double) 0);
+        JSlider mutationSlider = new JSlider(JSlider.HORIZONTAL,1,99,50);
         mutationSlider.setBackground(new Color(15,15,15));
         mutationSlider.addChangeListener(e -> {
             for (int i = 0; i < genePool.length; i++) {
-                double mutationRate = (double)(mutationSlider.getValue())/100;
-                mutationText.setText("Mutation Rate: "+(int)(mutationRate*100)+"%");
-                genePool[i] = new Genes(Genes.TEMPLATE,mutationRate);
+                mutationRate.set((double) (mutationSlider.getValue()) / 100);
+                mutationText.setText("Mutation Rate: "+(int)(mutationRate.get() *100)+"%");
+                genePool[i] = new Genes(Genes.TEMPLATE, mutationRate.get());
             }
         });
 
@@ -83,7 +85,7 @@ public class AnimalSim {
         playBox.setForeground(new Color(0, 255, 0));
         playBox.setFocusPainted(false);
         playBox.addActionListener(e -> {
-            if(!running.get()){
+            if(!running.get() && playBox.isSelected()){
                 generations.set(1);
                 running.set(true);
             }
@@ -99,7 +101,7 @@ public class AnimalSim {
         resetButton.addActionListener(e -> {
             if(running.get()){
             reset.set(true);
-            resetButton.setText("Cancelling...");
+            resetButton.setText("Waiting for Game...");
             resetButton.setEnabled(false);
             }
             else{
@@ -148,8 +150,18 @@ public class AnimalSim {
                     gameNumText.setText("Generation "+(i+1));
                     boolean isVisible = playBox.isSelected();
                     playBox.setSelected(false);
+
+                    // Main loop
                     Animal[] placement = new Game(isVisible, 200, 1200).run(genePool);
                     System.out.println("'"+placement[1199].getSymbol()+"' "+placement[1199].getID()+" wins!");
+                    for (int j = 0; j < placement[1199].getCode().length; j++) {
+                        System.out.print(placement[1199].getCode()[j]+" ");
+                    }
+                    System.out.println();
+                    placement = Genes.mutateAnimals(placement, mutationRate.get());
+                    for (Animal aPlacement : placement) {
+                        genePool[i] = new Genes(aPlacement.getCode());
+                    }
                 }
 
                 demoButton.setEnabled(true);

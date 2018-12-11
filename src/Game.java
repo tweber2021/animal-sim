@@ -48,7 +48,7 @@ class Game {
                 animals[i] = new Animal(i, 'B', (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
             }
         }
-        GameOfLife conway = new GameOfLife(map.getWidth(), map.getHeight(), map.getWidth()/5, visible); // Don't prompt the user for a pattern if they don't watch
+        GameOfLife conway = new GameOfLife(map.getWidth(), map.getHeight(), 20, visible); // Don't prompt the user for a pattern if they don't watch
         window.centerView();
 
         if (visible) {
@@ -127,9 +127,9 @@ class Game {
     }
 
     private void moveAnimal(Animal animal, Map map, Animal[] animals, Animal.Move move, int xlim, int ylim) {
-        if (animal.getEnergy() <= 0) {
-            animal.die();
+        if (animal.getEnergy() <= 0 && animal.isAlive()) {
             addToPlacement(animal);
+            animal.die();
         } // If no energy, die
         int desiredX = animal.getX();
         int desiredY = animal.getY();
@@ -174,13 +174,13 @@ class Game {
             // Fight!
             Animal defender = animals[map.readID(desiredX, desiredY)];
             if (rockPaperScissors(animal.attack(defender.getSymbol()), defender.attack(animal.getSymbol()))) { // If the attacker (this animal) wins
-                defender.die();
                 addToPlacement(defender);
+                defender.die();
                 animal.setEnergy(animal.getEnergy() + defender.getEnergy() / 2); // Winner gets half of the opponents energy
                 animal.incKills();
             } else {
-                animal.die();
                 addToPlacement(animal);
+                animal.die();
                 defender.setEnergy(defender.getEnergy() + animal.getEnergy() / 2);
                 defender.incKills();
             } // Otherwise, RIP
@@ -282,15 +282,16 @@ class Game {
         map.overlay(conway.gen());
         for (Animal animal : animals) {
             if (map.read(animal.getX(), animal.getY()) == 'o' && animal.isAlive()) {
-                animal.die();
                 addToPlacement(animal);
+                animal.die();
                 conway.incKills();
             }
         }
     }
 
     private void addToPlacement(Animal animal){
+        if(animal.isAlive()){
         placement[placementPos] = new Animal(animal);
-        placementPos++;
+        placementPos++;}
     }
 }

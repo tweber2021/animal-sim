@@ -61,7 +61,7 @@ class Map {
         }
     }
 
-    void setEqualTo(Map otherMap){ // overlay another map on top of the current one (used for game of life)
+    void setEqualTo(Map otherMap){
         for(int i=0;i<width;i++){
             for(int j=0;j<height;j++){
                 set(i,j,otherMap.read(i,j),otherMap.readID(i,j));

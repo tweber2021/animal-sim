@@ -27,6 +27,17 @@ class Animal {
         alive = true;
     }
 
+    Animal(int ID, char symbol, int x, int y, Genes genes){
+        this.genes = new Genes(genes.getCode());
+        this.x = x;
+        this.y = y;
+        this.ID = ID;
+        this.symbol = symbol;
+        energy = 2000;
+        age = 0;
+        alive = true;
+    }
+
     // TODO: Abilities
 
     Animal(Animal otherAnimal){ // Clone an animal
@@ -91,5 +102,13 @@ class Animal {
 
     final int getKills(){
         return kills;
+    }
+
+    final byte[] getCode(){
+        return genes.getCode();
+    }
+
+    final Genes getGenes(){
+        return genes;
     }
 }

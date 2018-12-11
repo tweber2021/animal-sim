@@ -201,10 +201,10 @@ class Genes {
 
     private void mutate(double mutationRate){
         // Chunk insertion/deletion
-        if(Math.random()<mutationRate/10){
+        if(Math.random()<mutationRate/3){
             addChunk();
         }
-        else if(Math.random()<mutationRate/15 && code.length>23){ // Cannot add and remove chunks at the same time
+        else if(Math.random()<mutationRate/8 && code.length>23){ // Cannot add and remove chunks at the same time
             removeChunk();
         }
 
@@ -241,6 +241,22 @@ class Genes {
         System.arraycopy(code, 0, shortenedCode, 0, code.length-8);
         code = Arrays.copyOf(shortenedCode, shortenedCode.length);
 
+    }
+
+    // TODO: Make fitness based on kills, since placement doesn't create interesting results
+
+    static Animal[] mutateAnimals(Animal[] leaderboard, double maxMutationRate){
+        Animal[] result = new Animal[leaderboard.length];
+        for (int i = 0; i < leaderboard.length / 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                int newPos = 1199-((i*100)+j);
+                double mutationRate = ((newPos/(double)leaderboard.length)*maxMutationRate);
+                Genes newGenes = new Genes(leaderboard[i].getGenes().getCode());
+                newGenes.mutate(mutationRate);
+                result[(i*100)+j] = new Animal(newPos,leaderboard[i].getSymbol(),leaderboard[i].getX(),leaderboard[i].getY(),newGenes);
+            }
+        }
+        return result;
     }
 
 

@@ -177,7 +177,7 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         int width = 0;
 
         if(text.equals("random")){
-            randomize(40);
+            randomize(20);
             return;
         }
 
