@@ -84,12 +84,12 @@ public class AnimalSim {
         playBox.setBackground(new Color(15,15,15));
         playBox.setForeground(new Color(0, 255, 0));
         playBox.setFocusPainted(false);
-        playBox.addActionListener(e -> {
+        /*playBox.addActionListener(e -> {
             if(!running.get() && playBox.isSelected()){
                 generations.set(1);
                 running.set(true);
             }
-        });
+        });*/
 
         // Cancel Button
         JButton resetButton = new JButton("Exit");
@@ -153,11 +153,9 @@ public class AnimalSim {
 
                     // Main loop
                     Animal[] placement = new Game(isVisible, 200, 1200).run(genePool);
-                    System.out.print("'"+placement[1199].getSymbol()+"' "+placement[1199].getID()+" wins! Code: ");
-                    for (int j = 0; j < placement[1199].getCode().length; j++) {
-                        System.out.print(placement[1199].getCode()[j]+" ");
-                    }
-                    System.out.println("  ("+(placement[1199].getCode().length-23)/8+")"); // Print number of chunks
+                    System.out.print("'"+placement[1199].getSymbol()+"' #"+placement[1199].getID()+" wins! Code:\n");
+                    System.out.println(placement[1199].getGenes().translateGenes());
+                    //System.out.println("  ("+(placement[1199].getCode().length-23)/8+")"); // Print number of chunks
                     Animal[] mutatedAnimals = Genes.mutateAnimals(placement, mutationRate.get());
                     for (int j = 0; j < mutatedAnimals.length; j++) {
                         genePool[j] = mutatedAnimals[j].getGenes();

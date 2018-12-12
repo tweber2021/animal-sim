@@ -5,6 +5,9 @@ class Genes {
 
     // Constants:
 
+    // Characters
+    private final static char[] visionChars = new char[]{'L','W','B','o'};
+
     // Static offsets
     private final static int VERSION = 4;
     private final static int SKILL_1 = 9;
@@ -216,9 +219,24 @@ class Genes {
         }
         for (int i = 0; i < (code.length - MOVES_START)/8; i++) { // Iterate through movement chunks
             for (int j = 0; j < 8; j++) {
-                if(Math.random()<mutationRate){ // Everything in the movement chunk is subject to mutation
-                    code[getAbsPos(i,j)] = (byte)(Math.random()*moveChunkRange[j]);
-                }
+                code[getAbsPos(i,j)] = (byte)(Math.random()*moveChunkRange[j]);
+            }
+
+            // Re-roll if we're using modulo variables
+            if(code[getAbsPos(i,ENV_VAR_1)]>10 && code[getAbsPos(i,ENV_VAR_1)]<20){
+                code[getAbsPos(i,SCALAR_1)] = (byte)(Math.random()*(code[getAbsPos(i,ENV_VAR_1)]-9));
+            }
+            else if(code[getAbsPos(i,ENV_VAR_2)]>10 && code[getAbsPos(i,ENV_VAR_2)]<20){
+                code[getAbsPos(i,SCALAR_2)] = (byte)(Math.random()*(code[getAbsPos(i,ENV_VAR_2)]-9));
+            }
+
+            // Re-roll if we're using vision variables for only relevant characters
+            if(code[getAbsPos(i,ENV_VAR_1)]>1 && code[getAbsPos(i,ENV_VAR_1)]<11){
+                code[getAbsPos(i,SCALAR_1)] = (byte)genChar();
+            }
+            // TODO: Fix scalar 2 not being replaced
+            else if(code[getAbsPos(i,ENV_VAR_2)]>1 && code[getAbsPos(i,ENV_VAR_2)]<11){
+                code[getAbsPos(i,SCALAR_2)] = (byte)genChar();
             }
         }
     }
@@ -241,24 +259,25 @@ class Genes {
 
     String translateGenes(){
         StringBuilder builder = new StringBuilder("Attack Lions with " + translateAttack(code[LION_ATTACK]) +
-                "\nAttack Wolves with " + translateAttack(code[LION_ATTACK]) +
-                "\nAttack Wolves with " + translateAttack(code[LION_ATTACK]));
-        int chunks = (code.length-23)%8;
+                "\nAttack Wolves with " + translateAttack(code[WOLF_ATTACK]) +
+                "\nAttack Bears with " + translateAttack(code[BEAR_ATTACK]));
+        int chunks = (code.length-23)/8;
         for (int i = 0; i < chunks; i++) {
             int conditionType = getChunkVal(i,CONDITION_TYPE);
             builder.append("\nif ");
             builder.append(translateEnvVar(getChunkVal(i,ENV_VAR_1)));
-            builder.append(translateComparison(getChunkVal(i,OPERATOR_1)));
-            builder.append(getChunkVal(i,SCALAR_1));
+            builder.append(" ").append(translateComparison(getChunkVal(i, OPERATOR_1)));
+            builder.append(" ").append(getChunkVal(i, SCALAR_1));
             if(conditionType>0){
-                if(conditionType == 1){builder.append("&&");}
-                else{builder.append("||")}
+                if(conditionType == 1){builder.append(" && ");}
+                else{builder.append(" || ");}
                 builder.append(translateEnvVar(getChunkVal(i,ENV_VAR_2)));
-                builder.append(translateComparison(getChunkVal(i,OPERATOR_2)));
+                builder.append(" ").append(translateComparison(getChunkVal(i, OPERATOR_2))).append(" ");
                 builder.append(getChunkVal(i,SCALAR_2));
             }
-            builder.append(translateAction(getChunkVal(i,ACTION)));
+            builder.append(" then ").append(translateAction(getChunkVal(i, ACTION)));
         }
+        builder.append("\n");
         return builder.toString();
     }
 
@@ -276,9 +295,48 @@ class Genes {
         switch(var){
             case 0: return "0";
             case 1: return "energy/100";
-            case 2: return "";
-            default: return "";
+            case 2: return "Top Left Vision";
+            case 3: return "Top Vision";
+            case 4: return "Top Right Vision";
+            case 5: return "Center Left Vision";
+            case 6: return "Own Symbol";
+            case 7: return "Center Right Vision";
+            case 8: return "Bottom Left Vision";
+            case 9: return "Bottom Center Vision";
+            case 10: return "Bottom Right Vision";
         }
+        if(var>10 && var<20){
+            return "Time%"+ (var-9);
+        }
+        else{
+            return "unknown";
+        }
+    }
+
+    private String translateComparison(int operator){
+        switch(operator){
+            case 0: return "==";
+            case 1: return "!=";
+            case 2: return ">";
+            case 3: return "<";
+            default: return "Err";
+        }
+    }
+
+    private String translateAction(int action){
+        switch(action){
+            case 0: return "Stand";
+            case 1: return "Move up";
+            case 2: return "Move right";
+            case 3: return "Move down";
+            case 4: return "Move left";
+            default: return "Ability/Unknown";
+        }
+    }
+
+    private int genChar(){ // Generate a random character from the set
+        int choice = (int)(Math.random()*visionChars.length);
+        return (int)visionChars[choice];
     }
 
     // TODO: Separate animals into 3 gene pools

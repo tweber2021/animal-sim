@@ -321,4 +321,8 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
         System.out.println();
         return getFromRLE(data.toString());
     }
+
+    Map getPattern(){
+        return pattern;
+    }
 }

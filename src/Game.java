@@ -68,6 +68,7 @@ class Game {
             for (Animal animal : animals) {
                 if (animal.isAlive()) {
                     refreshMap(map, animals);
+                    map.overlay(conway.getPattern());
                     moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
                 }
             }
