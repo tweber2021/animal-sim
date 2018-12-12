@@ -239,7 +239,49 @@ class Genes {
 
     }
 
-    // TODO: Make results more interesting, separate animals into 3 gene pools
+    String translateGenes(){
+        StringBuilder builder = new StringBuilder("Attack Lions with " + translateAttack(code[LION_ATTACK]) +
+                "\nAttack Wolves with " + translateAttack(code[LION_ATTACK]) +
+                "\nAttack Wolves with " + translateAttack(code[LION_ATTACK]));
+        int chunks = (code.length-23)%8;
+        for (int i = 0; i < chunks; i++) {
+            int conditionType = getChunkVal(i,CONDITION_TYPE);
+            builder.append("\nif ");
+            builder.append(translateEnvVar(getChunkVal(i,ENV_VAR_1)));
+            builder.append(translateComparison(getChunkVal(i,OPERATOR_1)));
+            builder.append(getChunkVal(i,SCALAR_1));
+            if(conditionType>0){
+                if(conditionType == 1){builder.append("&&");}
+                else{builder.append("||")}
+                builder.append(translateEnvVar(getChunkVal(i,ENV_VAR_2)));
+                builder.append(translateComparison(getChunkVal(i,OPERATOR_2)));
+                builder.append(getChunkVal(i,SCALAR_2));
+            }
+            builder.append(translateAction(getChunkVal(i,ACTION)));
+        }
+        return builder.toString();
+    }
+
+    private String translateAttack(int attack){
+        switch(attack){
+            case 0: return "rock";
+            case 1: return "paper";
+            case 2: return "scissors";
+            default: return "unknown";
+        }
+    }
+
+    private String translateEnvVar(int var){
+        // TODO
+        switch(var){
+            case 0: return "0";
+            case 1: return "energy/100";
+            case 2: return "";
+            default: return "";
+        }
+    }
+
+    // TODO: Separate animals into 3 gene pools
 
     static Animal[] mutateAnimals(Animal[] leaderboard, double maxMutationRate){
         Animal[] result = new Animal[leaderboard.length];
