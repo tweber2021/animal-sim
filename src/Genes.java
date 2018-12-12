@@ -204,7 +204,7 @@ class Genes {
         if(Math.random()<mutationRate/5){
             addChunk();
         }
-        else if(Math.random()<mutationRate/10 && code.length>23){ // Cannot add and remove chunks at the same time
+        else if(Math.random()<mutationRate/5 && code.length>23){ // Cannot add and remove chunks at the same time
             removeChunk();
         }
 
@@ -223,9 +223,7 @@ class Genes {
         }
     }
 
-    private void addChunk(/*int chunkID*/){
-        //int chunks = (code.length-23)/8;
-        //if(chunkID>=chunks){throw new IllegalArgumentException("Chunk "+chunkID+" is out of range "+chunks);}
+    private void addChunk(){
         byte[] extendedCode = new byte[code.length+8];
         System.arraycopy(code, 0, extendedCode, 0, code.length);
         for (int i = 0; i < 8; i++) {
@@ -234,16 +232,14 @@ class Genes {
         code = Arrays.copyOf(extendedCode, extendedCode.length);
     }
 
-    private void removeChunk(/*int chunkID*/){
-        //int chunks = (code.length-23)/8;
-        //if(chunkID>=chunks){throw new IllegalArgumentException("Chunk "+chunkID+" is out of range "+chunks);}
+    private void removeChunk(){
         byte[] shortenedCode = new byte[code.length-8];
         System.arraycopy(code, 0, shortenedCode, 0, code.length-8);
         code = Arrays.copyOf(shortenedCode, shortenedCode.length);
 
     }
 
-    // TODO: Make results more interesting, make sure evolution is actually happening, separate animals into 3 gene pools
+    // TODO: Make results more interesting, separate animals into 3 gene pools
 
     static Animal[] mutateAnimals(Animal[] leaderboard, double maxMutationRate){
         Animal[] result = new Animal[leaderboard.length];
@@ -251,7 +247,6 @@ class Genes {
             for (int j = 0; j < 10; j++) {
                 int newPos = 1199-((i*10)+j);
                 double mutationRate = ((double)newPos/leaderboard.length*maxMutationRate);
-                //System.out.println("m "+mutationRate);
                 Genes newGenes = new Genes(leaderboard[i].getGenes().getCode());
                 newGenes.mutate(mutationRate);
                 result[(i*10)+j] = new Animal(newPos,leaderboard[i].getSymbol(),leaderboard[i].getX(),leaderboard[i].getY(),newGenes.getCode());

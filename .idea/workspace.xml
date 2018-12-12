@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Fixes in settings panel, possibly added evolution">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Got mutations to work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/AnimalSim$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/AnimalSim$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/AnimalSim.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/AnimalSim.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/Genes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Genes.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AnimalSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnimalSim.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genes.java" afterDir="false" />
@@ -22,14 +18,14 @@
     <session id="-1865449517">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="16868" />
-          <entry key="txt" value="438" />
+          <entry key="java" value="16909" />
+          <entry key="txt" value="459" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="16868" />
-          <entry key="PLAIN_TEXT" value="438" />
+          <entry key="JAVA" value="16909" />
+          <entry key="PLAIN_TEXT" value="459" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -58,11 +54,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AnimalSim.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="159" column="116" selection-start-line="159" selection-start-column="116" selection-end-line="159" selection-end-column="116" />
+            <state relative-caret-position="2499">
+              <caret line="151" column="47" lean-forward="true" selection-start-line="151" selection-start-column="47" selection-end-line="151" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -84,11 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Genes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1596">
-              <caret line="217" column="32" lean-forward="true" selection-start-line="217" selection-start-column="32" selection-end-line="217" selection-end-column="32" />
+            <state relative-caret-position="334">
+              <caret line="203" column="41" lean-forward="true" selection-start-line="203" selection-start-column="41" selection-end-line="203" selection-end-column="41" />
               <folding>
                 <element signature="e#4039#4040#0" expanded="true" />
                 <element signature="e#4066#4067#0" expanded="true" />
@@ -100,7 +96,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Animal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="1547">
               <caret line="111" selection-start-line="111" selection-end-line="111" />
               <folding>
                 <element signature="e#2321#2322#0" expanded="true" />
@@ -122,8 +118,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>-3</find>
-      <find>'s'</find>
       <find>mutate</find>
       <find>range o</find>
       <find>bug</find>
@@ -152,6 +146,8 @@
       <find>mutation</find>
       <find>100</find>
       <find>chunks</find>
+      <find>throw</find>
+      <find>mrt</find>
     </findStrings>
     <replaceStrings>
       <replace>Wolves</replace>
@@ -173,8 +169,8 @@
         <option value="$PROJECT_DIR$/src/Animal.java" />
         <option value="$PROJECT_DIR$/src/GameOfLife.java" />
         <option value="$PROJECT_DIR$/src/Game.java" />
-        <option value="$PROJECT_DIR$/src/Genes.java" />
         <option value="$PROJECT_DIR$/src/AnimalSim.java" />
+        <option value="$PROJECT_DIR$/src/Genes.java" />
       </list>
     </option>
   </component>
@@ -212,7 +208,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544568189278" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544577827322" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -349,13 +345,21 @@
       <option name="project" value="LOCAL" />
       <updated>1544493212943</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Got mutations to work">
+      <created>1544568210905</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1544568210905</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="0" width="1926" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2913554" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2913554" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -364,7 +368,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3203991" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3203991" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39800444" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -435,7 +439,8 @@
     <MESSAGE value="Began leaderboard handling" />
     <MESSAGE value="Added a settings panel" />
     <MESSAGE value="Fixes in settings panel, possibly added evolution" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes in settings panel, possibly added evolution" />
+    <MESSAGE value="Got mutations to work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Got mutations to work" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/javax/swing/JScrollPane.java" />
@@ -478,6 +483,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Genes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="203" column="41" lean-forward="true" selection-start-line="203" selection-start-column="41" selection-end-line="203" selection-end-column="41" />
+          <folding>
+            <element signature="e#4039#4040#0" expanded="true" />
+            <element signature="e#4066#4067#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Animal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1547">
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
+          <folding>
+            <element signature="e#2321#2322#0" expanded="true" />
+            <element signature="e#2359#2360#0" expanded="true" />
+            <element signature="e#2416#2417#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
@@ -490,35 +518,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Animal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="111" selection-start-line="111" selection-end-line="111" />
-          <folding>
-            <element signature="e#2321#2322#0" expanded="true" />
-            <element signature="e#2359#2360#0" expanded="true" />
-            <element signature="e#2416#2417#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AnimalSim.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="159" column="116" selection-start-line="159" selection-start-column="116" selection-end-line="159" selection-end-column="116" />
+        <state relative-caret-position="2499">
+          <caret line="151" column="47" lean-forward="true" selection-start-line="151" selection-start-column="47" selection-end-line="151" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Genes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1596">
-          <caret line="217" column="32" lean-forward="true" selection-start-line="217" selection-start-column="32" selection-end-line="217" selection-end-column="32" />
-          <folding>
-            <element signature="e#4039#4040#0" expanded="true" />
-            <element signature="e#4066#4067#0" expanded="true" />
           </folding>
         </state>
       </provider>

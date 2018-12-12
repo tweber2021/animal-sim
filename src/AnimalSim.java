@@ -42,13 +42,13 @@ public class AnimalSim {
         mutationText.setForeground(new Color(0, 255, 0));
 
         // Mutation Rate Slider
-        AtomicReference<Double> mutationRate = new AtomicReference<>((double) 0);
+        AtomicReference<Double> mutationRate = new AtomicReference<>(0.5);
         JSlider mutationSlider = new JSlider(JSlider.HORIZONTAL,1,99,50);
         mutationSlider.setBackground(new Color(15,15,15));
         mutationSlider.addChangeListener(e -> {
+            mutationRate.set((double) (mutationSlider.getValue()) / 100);
+            mutationText.setText("Mutation Rate: "+(int)(mutationRate.get() *100)+"%");
             for (int i = 0; i < genePool.length; i++) {
-                mutationRate.set((double) (mutationSlider.getValue()) / 100);
-                mutationText.setText("Mutation Rate: "+(int)(mutationRate.get() *100)+"%");
                 genePool[i] = new Genes(Genes.TEMPLATE);
             }
         });
@@ -158,9 +158,7 @@ public class AnimalSim {
                         System.out.print(placement[1199].getCode()[j]+" ");
                     }
                     System.out.println("  ("+(placement[1199].getCode().length-23)/8+")"); // Print number of chunks
-                    // TODO: mutationRate.get() == 0
-                    //System.out.println("Mrt = "+mutationRate.get());
-                    Animal[] mutatedAnimals = Genes.mutateAnimals(placement, 0.5/*mutationRate.get()*/);
+                    Animal[] mutatedAnimals = Genes.mutateAnimals(placement, mutationRate.get());
                     for (int j = 0; j < mutatedAnimals.length; j++) {
                         genePool[j] = mutatedAnimals[j].getGenes();
                     }
