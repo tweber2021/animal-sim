@@ -64,6 +64,10 @@ class Game {
             for (Animal animal : animals) {
                 if (animal.isAlive()) {
                     moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
+                    if(animal.getSymbol() == 'L' && animal.canUseSkill() && animal.getSkill() == 0){ // Double Speed Ability
+                        moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
+                        animal.deactivateSkill();
+                    }
                 }
             }
 
@@ -123,6 +127,7 @@ class Game {
 
     private void moveAnimal(Animal animal, Map map, Animal[] animals, Animal.Move move, int xlim, int ylim) {
         if (animal.getEnergy() <= 0 && animal.isAlive()) {
+
             addToPlacement(animal);
             animal.die();
         } // If no energy, die
@@ -285,8 +290,11 @@ class Game {
     }
 
     private void addToPlacement(Animal animal){
-        if(animal.isAlive()){
-        placement[placementPos] = new Animal(animal);
-        placementPos++;}
+        if(!(animal.canUseSkill() && animal.getSymbol() == 'L' && animal.getSkill() == 1)){ // Extra life ability
+            // Don't deactivate the ability - it will be used right after
+            if(animal.isAlive()){
+                placement[placementPos] = new Animal(animal);
+                placementPos++;}
+        }
     }
 }

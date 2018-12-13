@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Fixes in settings panel, possibly added evolution">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Began distinguishment of animal species">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Animal$Attack.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Animal$Attack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Animal$Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Animal$Move.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/Animal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Animal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/AnimalSim$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/AnimalSim$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/AnimalSim.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/AnimalSim.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/GameOfLife$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/GameOfLife$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/GameOfLife.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/GameOfLife.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/Genes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Genes.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AnimalSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnimalSim.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genes.java" afterDir="false" />
     </list>
@@ -27,14 +23,14 @@
     <session id="-1865449517">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="18233" />
-          <entry key="txt" value="521" />
+          <entry key="java" value="19035" />
+          <entry key="txt" value="561" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="18233" />
-          <entry key="PLAIN_TEXT" value="521" />
+          <entry key="JAVA" value="19035" />
+          <entry key="PLAIN_TEXT" value="561" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -80,8 +76,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="65" column="84" selection-start-line="65" selection-start-column="84" selection-end-line="65" selection-end-column="84" />
+            <state relative-caret-position="379">
+              <caret line="293" column="73" selection-start-line="293" selection-start-column="73" selection-end-line="293" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#10329#10330#0" expanded="true" />
@@ -94,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameOfLife.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+            <state relative-caret-position="85">
+              <caret line="5" column="77" lean-forward="true" selection-start-line="5" selection-start-column="77" selection-end-line="5" selection-end-column="77" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -106,19 +102,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Genes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4964">
-              <caret line="292" column="5" selection-start-line="292" selection-start-column="5" selection-end-line="292" selection-end-column="5" />
+            <state relative-caret-position="6800">
+              <caret line="400" column="24" selection-start-line="400" selection-start-column="24" selection-end-line="400" selection-end-column="24" />
               <folding>
-                <element signature="e#4011#4012#0" expanded="true" />
-                <element signature="e#4045#4046#0" expanded="true" />
-                <element signature="e#4068#4069#0" expanded="true" />
-                <element signature="e#4095#4096#0" expanded="true" />
-                <element signature="e#7738#7739#0" expanded="true" />
-                <element signature="e#7847#7848#0" expanded="true" />
-                <element signature="e#7906#7907#0" expanded="true" />
-                <element signature="e#7965#7966#0" expanded="true" />
-                <element signature="e#12327#12328#0" expanded="true" />
-                <element signature="e#12365#12366#0" expanded="true" />
+                <element signature="e#2313#2314#0" expanded="true" />
+                <element signature="e#2347#2348#0" expanded="true" />
+                <element signature="e#2370#2371#0" expanded="true" />
+                <element signature="e#2397#2398#0" expanded="true" />
+                <element signature="e#2425#2426#0" expanded="true" />
+                <element signature="e#2459#2460#0" expanded="true" />
+                <element signature="e#6030#6031#0" expanded="true" />
+                <element signature="e#6139#6140#0" expanded="true" />
+                <element signature="e#6198#6199#0" expanded="true" />
+                <element signature="e#6257#6258#0" expanded="true" />
+                <element signature="e#12258#12259#0" expanded="true" />
+                <element signature="e#12304#12305#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -127,13 +125,33 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Animal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1326">
-              <caret line="107" column="19" selection-start-line="107" selection-start-column="19" selection-end-line="107" selection-end-column="19" />
+            <state relative-caret-position="410">
+              <caret line="62" column="9" lean-forward="true" selection-start-line="57" selection-start-column="8" selection-end-line="62" selection-end-column="9" />
               <folding>
-                <element signature="e#2316#2317#0" expanded="true" />
-                <element signature="e#2342#2343#0" expanded="true" />
-                <element signature="e#2388#2389#0" expanded="true" />
-                <element signature="e#2416#2417#0" expanded="true" />
+                <element signature="e#1663#1664#0" expanded="true" />
+                <element signature="e#1687#1688#0" expanded="true" />
+                <element signature="e#1710#1711#0" expanded="true" />
+                <element signature="e#1734#1735#0" expanded="true" />
+                <element signature="e#1758#1759#0" expanded="true" />
+                <element signature="e#1783#1784#0" expanded="true" />
+                <element signature="e#1896#1897#0" expanded="true" />
+                <element signature="e#1924#1925#0" expanded="true" />
+                <element signature="e#1953#1954#0" expanded="true" />
+                <element signature="e#1982#1983#0" expanded="true" />
+                <element signature="e#2010#2011#0" expanded="true" />
+                <element signature="e#2039#2040#0" expanded="true" />
+                <element signature="e#2078#2079#0" expanded="true" />
+                <element signature="e#2114#2115#0" expanded="true" />
+                <element signature="e#2183#2184#0" expanded="true" />
+                <element signature="e#2211#2212#0" expanded="true" />
+                <element signature="e#2236#2237#0" expanded="true" />
+                <element signature="e#2262#2263#0" expanded="true" />
+                <element signature="e#2291#2292#0" expanded="true" />
+                <element signature="e#2319#2320#0" expanded="true" />
+                <element signature="e#2357#2358#0" expanded="true" />
+                <element signature="e#2391#2392#0" expanded="true" />
+                <element signature="e#2482#2483#0" expanded="true" />
+                <element signature="e#2510#2511#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -150,11 +168,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cancel&quot;</find>
-      <find>resetting</find>
-      <find>code</find>
-      <find>templat</find>
-      <find>addTo</find>
       <find>.die</find>
       <find>test2</find>
       <find>/10</find>
@@ -180,6 +193,11 @@
       <find>overlay</find>
       <find>stuff</find>
       <find>doco</find>
+      <find>surro</find>
+      <find>get</find>
+      <find>getGene</find>
+      <find>extra</find>
+      <find>addto</find>
     </findStrings>
     <replaceStrings>
       <replace>Wolves</replace>
@@ -200,9 +218,9 @@
         <option value="$PROJECT_DIR$/src/SimWindow.java" />
         <option value="$PROJECT_DIR$/src/Map.java" />
         <option value="$PROJECT_DIR$/src/GameOfLife.java" />
-        <option value="$PROJECT_DIR$/src/Animal.java" />
-        <option value="$PROJECT_DIR$/src/Genes.java" />
         <option value="$PROJECT_DIR$/src/AnimalSim.java" />
+        <option value="$PROJECT_DIR$/src/Genes.java" />
+        <option value="$PROJECT_DIR$/src/Animal.java" />
         <option value="$PROJECT_DIR$/src/Game.java" />
       </list>
     </option>
@@ -241,7 +259,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544665803881" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544701414215" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -392,14 +410,21 @@
       <option name="project" value="LOCAL" />
       <updated>1544578001097</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Began distinguishment of animal species">
+      <created>1544665886741</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1544665886741</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="0" width="1926" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29775882" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29775882" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -408,7 +433,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292683" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3203991" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3203991" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39800444" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -481,7 +506,8 @@
     <MESSAGE value="Fixes in settings panel, possibly added evolution" />
     <MESSAGE value="Got mutations to work" />
     <MESSAGE value="Fixed uninitialized mutation rate bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed uninitialized mutation rate bug" />
+    <MESSAGE value="Began distinguishment of animal species" />
+    <option name="LAST_COMMIT_MESSAGE" value="Began distinguishment of animal species" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/javax/swing/JScrollPane.java" />
@@ -501,35 +527,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Genes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4964">
-          <caret line="292" column="5" selection-start-line="292" selection-start-column="5" selection-end-line="292" selection-end-column="5" />
-          <folding>
-            <element signature="e#4011#4012#0" expanded="true" />
-            <element signature="e#4045#4046#0" expanded="true" />
-            <element signature="e#4068#4069#0" expanded="true" />
-            <element signature="e#4095#4096#0" expanded="true" />
-            <element signature="e#7738#7739#0" expanded="true" />
-            <element signature="e#7847#7848#0" expanded="true" />
-            <element signature="e#7906#7907#0" expanded="true" />
-            <element signature="e#7965#7966#0" expanded="true" />
-            <element signature="e#12327#12328#0" expanded="true" />
-            <element signature="e#12365#12366#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameOfLife.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1003">
@@ -543,15 +540,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameOfLife.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="77" lean-forward="true" selection-start-line="5" selection-start-column="77" selection-end-line="5" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Genes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6800">
+          <caret line="400" column="24" selection-start-line="400" selection-start-column="24" selection-end-line="400" selection-end-column="24" />
+          <folding>
+            <element signature="e#2313#2314#0" expanded="true" />
+            <element signature="e#2347#2348#0" expanded="true" />
+            <element signature="e#2370#2371#0" expanded="true" />
+            <element signature="e#2397#2398#0" expanded="true" />
+            <element signature="e#2425#2426#0" expanded="true" />
+            <element signature="e#2459#2460#0" expanded="true" />
+            <element signature="e#6030#6031#0" expanded="true" />
+            <element signature="e#6139#6140#0" expanded="true" />
+            <element signature="e#6198#6199#0" expanded="true" />
+            <element signature="e#6257#6258#0" expanded="true" />
+            <element signature="e#12258#12259#0" expanded="true" />
+            <element signature="e#12304#12305#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Animal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="107" column="19" selection-start-line="107" selection-start-column="19" selection-end-line="107" selection-end-column="19" />
+        <state relative-caret-position="410">
+          <caret line="62" column="9" lean-forward="true" selection-start-line="57" selection-start-column="8" selection-end-line="62" selection-end-column="9" />
           <folding>
-            <element signature="e#2316#2317#0" expanded="true" />
-            <element signature="e#2342#2343#0" expanded="true" />
-            <element signature="e#2388#2389#0" expanded="true" />
-            <element signature="e#2416#2417#0" expanded="true" />
+            <element signature="e#1663#1664#0" expanded="true" />
+            <element signature="e#1687#1688#0" expanded="true" />
+            <element signature="e#1710#1711#0" expanded="true" />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1758#1759#0" expanded="true" />
+            <element signature="e#1783#1784#0" expanded="true" />
+            <element signature="e#1896#1897#0" expanded="true" />
+            <element signature="e#1924#1925#0" expanded="true" />
+            <element signature="e#1953#1954#0" expanded="true" />
+            <element signature="e#1982#1983#0" expanded="true" />
+            <element signature="e#2010#2011#0" expanded="true" />
+            <element signature="e#2039#2040#0" expanded="true" />
+            <element signature="e#2078#2079#0" expanded="true" />
+            <element signature="e#2114#2115#0" expanded="true" />
+            <element signature="e#2183#2184#0" expanded="true" />
+            <element signature="e#2211#2212#0" expanded="true" />
+            <element signature="e#2236#2237#0" expanded="true" />
+            <element signature="e#2262#2263#0" expanded="true" />
+            <element signature="e#2291#2292#0" expanded="true" />
+            <element signature="e#2319#2320#0" expanded="true" />
+            <element signature="e#2357#2358#0" expanded="true" />
+            <element signature="e#2391#2392#0" expanded="true" />
+            <element signature="e#2482#2483#0" expanded="true" />
+            <element signature="e#2510#2511#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -570,8 +618,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="65" column="84" selection-start-line="65" selection-start-column="84" selection-end-line="65" selection-end-column="84" />
+        <state relative-caret-position="379">
+          <caret line="293" column="73" selection-start-line="293" selection-start-column="73" selection-end-line="293" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#10329#10330#0" expanded="true" />

@@ -8,13 +8,14 @@ class Animal {
     private int kills;
     private int age;
     private char symbol;
+    private int skill;
     private boolean alive;
+    private boolean canUseSkill = true;
 
 
     // Establish constants for movement and attacks
     enum Move{UP, DOWN, LEFT, RIGHT, STAND}
     enum Attack{ROCK, PAPER, SCISSORS, NOTHING}
-    // enum Ability{SPEED, L2, L3, PACK, BLASTER, W3, BUILD, PIZZA, B3} // List of animal abilities. 2 character names are placeholders.
 
     Animal(int ID, int x, int y, byte[] code){
         this.genes = new Genes(code);
@@ -24,17 +25,7 @@ class Animal {
         this.symbol = (char)code[4];
         energy = 2000;
         age = 0;
-        alive = true;
-    }
-
-    Animal(int ID, int x, int y, Genes genes){
-        this.genes = new Genes(genes.getCode());
-        this.x = x;
-        this.y = y;
-        this.ID = ID;
-        this.symbol = (char)genes.getCode()[4];
-        energy = 2000;
-        age = 0;
+        skill = code[9];
         alive = true;
     }
 
@@ -46,10 +37,12 @@ class Animal {
         this.y = otherAnimal.y;
         this.ID = otherAnimal.ID;
         this.symbol = otherAnimal.symbol;
+        this.skill = otherAnimal.skill;
         this.energy = otherAnimal.energy;
         this.kills = otherAnimal.kills;
         this.age = otherAnimal.age;
         this.alive = otherAnimal.alive;
+        this.canUseSkill = otherAnimal.canUseSkill;
     }
 
     Move move(char[][] surroundings){
@@ -62,7 +55,12 @@ class Animal {
     }
 
     final void die(){
+        if(canUseSkill && symbol == 'L' && skill == 1){ // Extra life ability
+            canUseSkill = false;
+        }
+        else{
         alive = false;
+        }
     }
 
     final int getX(){
@@ -110,5 +108,18 @@ class Animal {
 
     final Genes getGenes(){
         return genes;
+    }
+
+    final boolean canUseSkill(){
+        return canUseSkill;
+    }
+
+    final void deactivateSkill(){
+        System.out.println(skill+" used!");
+        canUseSkill = false;
+    }
+
+    final int getSkill(){
+        return skill;
     }
 }

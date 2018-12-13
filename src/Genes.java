@@ -10,9 +10,7 @@ class Genes {
 
     // Static offsets
     private final static int SPECIES = 4;
-    private final static int SKILL_1 = 9;
-    private final static int SKILL_2 = 10;
-    private final static int SKILL_3 = 11;
+    private final static int SKILL = 9;
     private final static int LION_ATTACK = 16;
     private final static int WOLF_ATTACK = 17;
     private final static int BEAR_ATTACK = 18;
@@ -31,9 +29,10 @@ class Genes {
     private final static byte[] staticGeneRange = new byte[]{
             // Individual byte gene limits go here. Zero indicates no change on mutation.
             0,0,0,0, // GENE
-            0, // 
+            0, // Species
             0,0,0,0, // SPEC
-            0,0,0, // Skills, no change for now
+            3, // Skill
+            0,0, // Unused
             0,0,0,0, // ATCK
             3,3,3, // Attacks
             0,0,0,0, // MOVE
@@ -48,7 +47,7 @@ class Genes {
             20, // 20 environment variables
             4, // 4 comparison operators
             Byte.MAX_VALUE, // Scalar range
-            5 // 8 different actions, but we're excluding special moves
+            5 // Action range
     };
 
     // Genes
@@ -73,6 +72,10 @@ class Genes {
 
     byte[] getCode(){
         return code;
+    }
+
+    byte getAbility(){
+        return code[SKILL];
     }
 
     Animal.Attack getAttack(char opponent){ // Return an animal's chosen attack based on the opposing 
@@ -396,9 +399,6 @@ class Genes {
             2. Move right
             3. Move down
             4. Move left
-            5. Ability 1
-            6. Ability 2
-            7. Ability 3
 
     */
 
