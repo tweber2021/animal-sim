@@ -16,23 +16,23 @@ class Animal {
     enum Attack{ROCK, PAPER, SCISSORS, NOTHING}
     // enum Ability{SPEED, L2, L3, PACK, BLASTER, W3, BUILD, PIZZA, B3} // List of animal abilities. 2 character names are placeholders.
 
-    Animal(int ID, char symbol, int x, int y, byte[] code){
+    Animal(int ID, int x, int y, byte[] code){
         this.genes = new Genes(code);
         this.x = x;
         this.y = y;
         this.ID = ID;
-        this.symbol = symbol;
+        this.symbol = (char)code[4];
         energy = 2000;
         age = 0;
         alive = true;
     }
 
-    Animal(int ID, char symbol, int x, int y, Genes genes){
+    Animal(int ID, int x, int y, Genes genes){
         this.genes = new Genes(genes.getCode());
         this.x = x;
         this.y = y;
         this.ID = ID;
-        this.symbol = symbol;
+        this.symbol = (char)genes.getCode()[4];
         energy = 2000;
         age = 0;
         alive = true;
@@ -104,8 +104,8 @@ class Animal {
         return kills;
     }
 
-    final byte[] getCode(){
-        return genes.getCode();
+    final int getAge(){
+        return age;
     }
 
     final Genes getGenes(){

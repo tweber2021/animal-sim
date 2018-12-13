@@ -15,6 +15,13 @@ public class AnimalSim {
         Genes[] genePool = new Genes[1200];
         for (int i = 0; i < genePool.length; i++) {
             genePool[i] = new Genes(Genes.TEMPLATE);
+            if (i < genePool.length / 3) {
+                genePool[i].setSpecies('L');
+            } else if (i < (genePool.length / 3) * 2) {
+                genePool[i].setSpecies('W');
+            } else {
+                genePool[i].setSpecies('B');
+            }
         }
 
         // Starting Menu
@@ -50,6 +57,13 @@ public class AnimalSim {
             mutationText.setText("Mutation Rate: "+(int)(mutationRate.get() *100)+"%");
             for (int i = 0; i < genePool.length; i++) {
                 genePool[i] = new Genes(Genes.TEMPLATE);
+                if (i < genePool.length / 3) {
+                    genePool[i].setSpecies('L');
+                } else if (i < (genePool.length / 3) * 2) {
+                    genePool[i].setSpecies('W');
+                } else {
+                    genePool[i].setSpecies('B');
+                }
             }
         });
 
@@ -139,7 +153,14 @@ public class AnimalSim {
                 for (int i = 0; i < generations.get(); i++) {
                     if(reset.get()){
                         for (int j = 0; j < genePool.length; j++) {
-                            genePool[j] = new Genes(Genes.TEMPLATE);
+                            genePool[i] = new Genes(Genes.TEMPLATE);
+                            if (j < genePool.length / 3) {
+                                genePool[j].setSpecies('L');
+                            } else if (j < (genePool.length / 3) * 2) {
+                                genePool[j].setSpecies('W');
+                            } else {
+                                genePool[j].setSpecies('B');
+                            }
                         }
                         resetButton.setText("Exit");
                         resetButton.setEnabled(true);
@@ -153,6 +174,7 @@ public class AnimalSim {
 
                     // Main loop
                     Animal[] placement = new Game(isVisible, 200, 1200).run(genePool);
+                    System.out.println("Game ended at t="+placement[1199].getAge()); // TODO: Handle extinction scenario
                     System.out.print("'"+placement[1199].getSymbol()+"' #"+placement[1199].getID()+" wins! Code:\n");
                     System.out.println(placement[1199].getGenes().translateGenes());
                     //System.out.println("  ("+(placement[1199].getCode().length-23)/8+")"); // Print number of chunks

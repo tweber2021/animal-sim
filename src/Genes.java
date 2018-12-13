@@ -9,7 +9,7 @@ class Genes {
     private final static char[] visionChars = new char[]{'L','W','B','o'};
 
     // Static offsets
-    private final static int VERSION = 4;
+    private final static int SPECIES = 4;
     private final static int SKILL_1 = 9;
     private final static int SKILL_2 = 10;
     private final static int SKILL_3 = 11;
@@ -31,7 +31,7 @@ class Genes {
     private final static byte[] staticGeneRange = new byte[]{
             // Individual byte gene limits go here. Zero indicates no change on mutation.
             0,0,0,0, // GENE
-            0, // VERSION
+            0, // 
             0,0,0,0, // SPEC
             0,0,0, // Skills, no change for now
             0,0,0,0, // ATCK
@@ -54,7 +54,7 @@ class Genes {
     // Genes
     final static byte[] TEMPLATE = new byte[]{ // Blank Slate
             71, 69, 78, 69, // GENE
-            0, // Version 0
+            0, // Species 0
             83, 80, 69, 67, // SPEC
             0, 0, 0, // Skills
             65, 84, 67, 75, // ATCK
@@ -63,54 +63,9 @@ class Genes {
             // Empty MOVE chunk
     };
 
-    final static byte[] TEST = new byte[]{ // Always move up
-            71, 69, 78, 69, // GENE
-            0, // Version 0
-            83, 80, 69, 67, // SPEC
-            0, 0, 0, // Skills
-            65, 84, 67, 75, // ATCK
-            1, 1, 1, // Attack paper for all enemies
-            77, 79, 86, 69, // MOVE
-            0, // Only evaluate first conditional
-            0, 1, 1, // if zero is unequal to one (true)
-            0, 0, 0, // we don't care about this because we're only doing one conditional
-            1 // Move up
-    };
-
-    final static byte[] TEST2 = new byte[]{ // Alternate between moving right and down
-            71, 69, 78, 69, // GENE
-            0, // Version 0
-            83, 80, 69, 67, // SPEC
-            0, 0, 0, // Skills
-            65, 84, 67, 75, // ATCK
-            2, 2, 2, // Attack scissors for all enemies
-            77, 79, 86, 69, // MOVE
-
-            // Alternate between moving right and down
-
-            // First conditional
-            0, // Only evaluate first conditional
-            11, 0, 0, // if time%2 == 0
-            0, 0, 0, // we don't care about this because we're only doing one conditional
-            2, // Move right
-
-            // Second conditional
-            0, // Condition 1 or Condition 2
-            11, 0, 1, // if time%2 == 1
-            0, 0, 0, // we don't care about this because we're only doing one conditional
-            3 // Move down
-    };
-
     Genes(byte[] code){
         this.code = Arrays.copyOf(code,code.length); // Prevent all animals from having the same genes
     }
-
-    Genes(byte[] code, double mutationRate){
-        this.code = Arrays.copyOf(code,code.length); // Prevent all animals from having the same genes
-        this.mutate(mutationRate);
-    }
-
-    // TODO: Replication, error-checking function
 
     private byte getGene(int index){
         return code[index];
@@ -120,7 +75,7 @@ class Genes {
         return code;
     }
 
-    Animal.Attack getAttack(char opponent){ // Return an animal's chosen attack based on the opposing species
+    Animal.Attack getAttack(char opponent){ // Return an animal's chosen attack based on the opposing 
         switch (opponent){
             case 'L': return Animal.Attack.values()[getGene(LION_ATTACK)];
             case 'W': return Animal.Attack.values()[getGene(WOLF_ATTACK)];
@@ -226,7 +181,7 @@ class Genes {
             if(code[getAbsPos(i,ENV_VAR_1)]>10 && code[getAbsPos(i,ENV_VAR_1)]<20){
                 code[getAbsPos(i,SCALAR_1)] = (byte)(Math.random()*(code[getAbsPos(i,ENV_VAR_1)]-9));
             }
-            else if(code[getAbsPos(i,ENV_VAR_2)]>10 && code[getAbsPos(i,ENV_VAR_2)]<20){
+            if(code[getAbsPos(i,ENV_VAR_2)]>10 && code[getAbsPos(i,ENV_VAR_2)]<20){
                 code[getAbsPos(i,SCALAR_2)] = (byte)(Math.random()*(code[getAbsPos(i,ENV_VAR_2)]-9));
             }
 
@@ -234,8 +189,7 @@ class Genes {
             if(code[getAbsPos(i,ENV_VAR_1)]>1 && code[getAbsPos(i,ENV_VAR_1)]<11){
                 code[getAbsPos(i,SCALAR_1)] = (byte)genChar();
             }
-            // TODO: Fix scalar 2 not being replaced
-            else if(code[getAbsPos(i,ENV_VAR_2)]>1 && code[getAbsPos(i,ENV_VAR_2)]<11){
+            if(code[getAbsPos(i,ENV_VAR_2)]>1 && code[getAbsPos(i,ENV_VAR_2)]<11){
                 code[getAbsPos(i,SCALAR_2)] = (byte)genChar();
             }
         }
@@ -291,7 +245,6 @@ class Genes {
     }
 
     private String translateEnvVar(int var){
-        // TODO
         switch(var){
             case 0: return "0";
             case 1: return "energy/100";
@@ -339,8 +292,6 @@ class Genes {
         return (int)visionChars[choice];
     }
 
-    // TODO: Separate animals into 3 gene pools
-
     static Animal[] mutateAnimals(Animal[] leaderboard, double maxMutationRate){
         Animal[] result = new Animal[leaderboard.length];
         for (int i = 0; i < leaderboard.length / 10; i++) {
@@ -349,10 +300,14 @@ class Genes {
                 double mutationRate = ((double)newPos/leaderboard.length*maxMutationRate);
                 Genes newGenes = new Genes(leaderboard[i].getGenes().getCode());
                 newGenes.mutate(mutationRate);
-                result[(i*10)+j] = new Animal(newPos,leaderboard[i].getSymbol(),leaderboard[i].getX(),leaderboard[i].getY(),newGenes.getCode());
+                result[(i*10)+j] = new Animal(newPos,leaderboard[i].getX(),leaderboard[i].getY(),newGenes.getCode());
             }
         }
         return result;
+    }
+
+    void setSpecies(char symbol){
+        code[SPECIES] = (byte)(symbol);
     }
 
 
@@ -363,7 +318,7 @@ class Genes {
 
       HEADER
                           Magic Word          4         None        The character sequence "GENE".
-                          Version             1         Full        Version of the data format.
+                          Species             1         Full        Character number of the animal's species
       SKILL
                           Skill chunk ID      4         None        The character sequence "SPEC".
                           Skill 1             1         0-2         An animals's special ability.

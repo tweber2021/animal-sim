@@ -40,13 +40,7 @@ class Game {
         Animal[] animals = new Animal[numAnimals];
 
         for (int i = 0; i < animals.length; i++) {
-            if (i < animals.length / 3) {
-                animals[i] = new Animal(i, 'L', (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
-            } else if (i < (animals.length / 3) * 2) {
-                animals[i] = new Animal(i, 'W', (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
-            } else {
-                animals[i] = new Animal(i, 'B', (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
-            }
+            animals[i] = new Animal(i, (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
         }
         GameOfLife conway = new GameOfLife(map.getWidth(), map.getHeight(), 20, visible); // Don't prompt the user for a pattern if they don't watch
         window.centerView();
@@ -65,10 +59,10 @@ class Game {
 
         while (open && remainingTeams(animals) > 1) { // Check if at least two teams are playing
             long time = System.currentTimeMillis();
+            refreshMap(map, animals);
+            map.overlay(conway.getPattern());
             for (Animal animal : animals) {
                 if (animal.isAlive()) {
-                    refreshMap(map, animals);
-                    map.overlay(conway.getPattern());
                     moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
                 }
             }
