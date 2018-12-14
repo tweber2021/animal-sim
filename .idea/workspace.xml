@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Began distinguishment of animal species">
+    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Animal abilities, began expanding UI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Animal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Animal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/animalSim/AnimalSim$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/AnimalSim$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/AnimalSim.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/AnimalSim.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Genes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Genes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AnimalSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnimalSim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genes.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,14 +17,14 @@
     <session id="-1865449517">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="22075" />
-          <entry key="txt" value="561" />
+          <entry key="java" value="22334" />
+          <entry key="txt" value="608" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="22075" />
-          <entry key="PLAIN_TEXT" value="561" />
+          <entry key="JAVA" value="22334" />
+          <entry key="PLAIN_TEXT" value="608" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -62,8 +56,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AnimalSim.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1513">
-              <caret line="93" column="67" lean-forward="true" selection-start-line="93" selection-start-column="67" selection-end-line="93" selection-end-column="67" />
+            <state relative-caret-position="442">
+              <caret line="54" column="71" selection-start-line="54" selection-start-column="71" selection-end-line="54" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -74,8 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SimWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="25" column="18" lean-forward="true" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+            <state relative-caret-position="425">
+              <caret line="41" column="47" lean-forward="true" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -145,7 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>stuff</find>
       <find>doco</find>
       <find>surro</find>
       <find>get</find>
@@ -175,6 +168,7 @@
       <find>transla</find>
       <find>wins</find>
       <find>placement</find>
+      <find>gen</find>
     </findStrings>
     <replaceStrings>
       <replace>Wolves</replace>
@@ -243,7 +237,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544752313759" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544788249029" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -401,12 +395,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544665886741</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Animal abilities, began expanding UI">
+      <created>1544752499443</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1544752499443</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="0" width="1926" height="1050" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3009605" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -417,7 +417,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292683" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3203991" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3203991" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39800444" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -501,7 +501,8 @@
     <MESSAGE value="Got mutations to work" />
     <MESSAGE value="Fixed uninitialized mutation rate bug" />
     <MESSAGE value="Began distinguishment of animal species" />
-    <option name="LAST_COMMIT_MESSAGE" value="Began distinguishment of animal species" />
+    <MESSAGE value="Animal abilities, began expanding UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Animal abilities, began expanding UI" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/javax/swing/JScrollPane.java" />
@@ -556,13 +557,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SimWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="25" column="18" lean-forward="true" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Genes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
@@ -574,10 +568,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/SimWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="41" column="47" lean-forward="true" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AnimalSim.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="93" column="67" lean-forward="true" selection-start-line="93" selection-start-column="67" selection-end-line="93" selection-end-column="67" />
+        <state relative-caret-position="442">
+          <caret line="54" column="71" selection-start-line="54" selection-start-column="71" selection-end-line="54" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -7,7 +7,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class AnimalSim {
     private static boolean looping = true; // When set to false, stop running the program
+    private static boolean ranBefore = false;
     private static int animalSelection = 1199;
+    private static Animal[] placement = new Animal[1200];
 
     public static void main(String args[]) {
         AtomicBoolean running = new AtomicBoolean(false);
@@ -45,12 +47,12 @@ public class AnimalSim {
         demoButton.addActionListener(e -> running.set(true));
 
         // Mutation Text
-        JLabel mutationText = new JLabel("Mutation Rate: 50%", SwingConstants.CENTER);
+        JLabel mutationText = new JLabel("Mutation Rate: 20%", SwingConstants.CENTER);
         mutationText.setForeground(new Color(0, 255, 0));
 
         // Mutation Rate Slider
-        AtomicReference<Double> mutationRate = new AtomicReference<>(0.5);
-        JSlider mutationSlider = new JSlider(JSlider.HORIZONTAL,1,99,50);
+        AtomicReference<Double> mutationRate = new AtomicReference<>(0.2);
+        JSlider mutationSlider = new JSlider(JSlider.HORIZONTAL,1,99,20);
         mutationSlider.setBackground(new Color(15,15,15));
         mutationSlider.addChangeListener(e -> {
             mutationRate.set((double) (mutationSlider.getValue()) / 100);
@@ -71,12 +73,14 @@ public class AnimalSim {
         JPanel mainControls = new JPanel(new GridLayout(4, 2, 1, 0));
         mainControls.setBackground(new Color(15, 15, 15));
 
-        // Animal information textbox
-        // TODO: Put in scrollpane, update periodically
+        // Animal information textarea
         JTextArea textArea = new JTextArea();
         textArea.setBackground(new Color(0,0,0));
         textArea.setForeground(new Color(0,255,0));
         textArea.setEditable(false);
+        textArea.setLineWrap(true);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
 
         // Animal Picker Text
         JLabel animalText = new JLabel("Show Animal's Genes", SwingConstants.CENTER);
@@ -92,8 +96,11 @@ public class AnimalSim {
         animalPicker.setBackground(new Color(15,15,15));
         animalPicker.addActionListener(e -> {
             animalSelection = 1199-animalPicker.getSelectedIndex();
-            //textArea.setText(placement[animalSelection]); TODO: Update immediately upon selection
-            //textArea.setText(Integer.toString(1199-animalSelection));
+            animalPicker.setEnabled(false);
+            animalPicker.setEnabled(true); // Erase annoying highlighting quickly and nearly flawlessly
+            if(ranBefore){
+                textArea.setText(placement[animalSelection].getGenes().translateGenes());
+            }
         });
 
         // Progress text
@@ -136,7 +143,7 @@ public class AnimalSim {
 
         dialog.setLayout(new GridLayout(1, 2, 4, 0));
         dialog.add(mainControls, BorderLayout.CENTER);
-        dialog.add(textArea, BorderLayout.EAST);
+        dialog.add(scrollPane, BorderLayout.EAST);
 
         dialog.setBackground(new Color(15, 15, 15));
 
@@ -147,7 +154,6 @@ public class AnimalSim {
 
         int gen = 0;
 
-
         // Active part of the code
         while (looping) {
             if (running.get()) {
@@ -157,20 +163,21 @@ public class AnimalSim {
                 demoButton.setText("Running...");
 
                 while(running.get()){
-                    gen++;
                     if(pause.get()){
                         pauseButton.setText("Exit");
                         pauseButton.setEnabled(true);
                         pause.set(false);
                         break;
                     }
+                    gen++;
                     gameNumText.setText("Generation "+gen);
                     boolean isVisible = playBox.isSelected();
                     playBox.setSelected(false);
 
                     // Main loop
-                    Animal[] placement = new Game(isVisible, 200, 1200).run(genePool);
-                    System.out.println("Game ended at t="+placement[1199].getAge()); // TODO: Handle extinction scenario
+                    placement = new Game(isVisible, 200, 1200).run(genePool);
+                    ranBefore = true;
+                    //System.out.println("Game ended at t="+placement[1199].getAge());
                     textArea.setText(placement[animalSelection].getGenes().translateGenes());
                     Animal[] mutatedAnimals = Genes.mutateAnimals(placement, mutationRate.get());
                     for (int j = 0; j < mutatedAnimals.length; j++) {
