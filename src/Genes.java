@@ -74,10 +74,6 @@ class Genes {
         return code;
     }
 
-    byte getAbility(){
-        return code[SKILL];
-    }
-
     Animal.Attack getAttack(char opponent){ // Return an animal's chosen attack based on the opposing 
         switch (opponent){
             case 'L': return Animal.Attack.values()[getGene(LION_ATTACK)];
@@ -215,7 +211,9 @@ class Genes {
     }
 
     String translateGenes(){
-        StringBuilder builder = new StringBuilder("Attack Lions with " + translateAttack(code[LION_ATTACK]) +
+        StringBuilder builder = new StringBuilder("Species: "+translateSpecies(code[SPECIES])+
+                "\nAbility: "+translateAbility(code[SKILL])+
+                "\nAttack Lions with " + translateAttack(code[LION_ATTACK]) +
                 "\nAttack Wolves with " + translateAttack(code[WOLF_ATTACK]) +
                 "\nAttack Bears with " + translateAttack(code[BEAR_ATTACK]));
         int chunks = (code.length-23)/8;
@@ -236,6 +234,24 @@ class Genes {
         }
         builder.append("\n");
         return builder.toString();
+    }
+
+    private String translateSpecies(byte species) {
+        switch((char)species){
+            case 'W': return "Wolf";
+            case 'L': return "Lion";
+            case 'B': return "Bear";
+            default: return String.valueOf((char)species);
+        }
+    }
+
+    private String translateAbility(int ability){
+        switch(ability){
+            case 0: return "Speed";
+            case 1: return "Extra Life";
+            case 2: return "Energy Efficiency";
+            default: return "unknown";
+        }
     }
 
     private String translateAttack(int attack){

@@ -64,9 +64,8 @@ class Game {
             for (Animal animal : animals) {
                 if (animal.isAlive()) {
                     moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
-                    if(animal.getSymbol() == 'L' && animal.canUseSkill() && animal.getSkill() == 0){ // Double Speed Ability
+                    if(animal.getSkill() == 0){ // Speed ability
                         moveAnimal(animal, map, animals, animal.move(map.getSurroundings(animal.getX(), animal.getY())), width, height);
-                        animal.deactivateSkill();
                     }
                 }
             }
@@ -127,9 +126,7 @@ class Game {
 
     private void moveAnimal(Animal animal, Map map, Animal[] animals, Animal.Move move, int xlim, int ylim) {
         if (animal.getEnergy() <= 0 && animal.isAlive()) {
-
-            addToPlacement(animal);
-            animal.die();
+            terminate(animal);
         } // If no energy, die
         int desiredX = animal.getX();
         int desiredY = animal.getY();
@@ -162,25 +159,28 @@ class Game {
             desiredY = 0;
         }
 
+        int energyUsage;
         if (move != Animal.Move.STAND) {
-            animal.setEnergy(animal.getEnergy() - 10);
+            energyUsage = 10;
         } // Lose energy, sleeping uses less
         else {
-            animal.setEnergy(animal.getEnergy() - 5);
+            energyUsage = 5;
         }
+        if(animal.getSkill() == 2){ // Energy efficiency ability
+            energyUsage /= 2;
+        }
+        animal.setEnergy(animal.getEnergy() - energyUsage);
 
         int destID = map.readID(desiredX, desiredY);
         if (destID != -1 && destID != animal.getID() && animals[destID].getSymbol() != animal.getSymbol()) { // If another animal with a different species is in the same space...
             // Fight!
             Animal defender = animals[map.readID(desiredX, desiredY)];
             if (rockPaperScissors(animal.attack(defender.getSymbol()), defender.attack(animal.getSymbol()))) { // If the attacker (this animal) wins
-                addToPlacement(defender);
-                defender.die();
+                terminate(defender);
                 animal.setEnergy((int) (animal.getEnergy() + defender.getEnergy() * 0.80)); // Winner gets half of the opponents energy
                 animal.incKills();
             } else {
-                addToPlacement(animal);
-                animal.die();
+                terminate(animal);
                 defender.setEnergy((int) (defender.getEnergy() + animal.getEnergy() * 0.80));
                 defender.incKills();
             } // Otherwise, RIP
@@ -282,19 +282,26 @@ class Game {
         map.overlay(conway.gen());
         for (Animal animal : animals) {
             if (map.read(animal.getX(), animal.getY()) == 'o' && animal.isAlive()) {
-                addToPlacement(animal);
-                animal.die();
+                terminate(animal);
                 conway.incKills();
             }
         }
     }
 
     private void addToPlacement(Animal animal){
-        if(!(animal.canUseSkill() && animal.getSymbol() == 'L' && animal.getSkill() == 1)){ // Extra life ability
-            // Don't deactivate the ability - it will be used right after
-            if(animal.isAlive()){
-                placement[placementPos] = new Animal(animal);
-                placementPos++;}
+        if(animal.isAlive()){
+            placement[placementPos] = new Animal(animal);
+            placementPos++;
+        }
+    }
+
+    private void terminate(Animal animal){
+        if(animal.canUseSkill() && animal.getSkill() == 1){ // Extra life ability
+            animal.useSkill();
+        }
+        else{
+            addToPlacement(animal);
+            animal.die();
         }
     }
 }

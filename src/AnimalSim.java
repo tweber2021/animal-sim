@@ -3,15 +3,15 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AnimalSim {
     private static boolean looping = true; // When set to false, stop running the program
+    private static int animalSelection = 1199;
 
     public static void main(String args[]) {
         AtomicBoolean running = new AtomicBoolean(false);
-        AtomicBoolean reset = new AtomicBoolean(false);
+        AtomicBoolean pause = new AtomicBoolean(false);
         Genes[] genePool = new Genes[1200];
         for (int i = 0; i < genePool.length; i++) {
             genePool[i] = new Genes(Genes.TEMPLATE);
@@ -67,26 +67,33 @@ public class AnimalSim {
             }
         });
 
-        // Generations Text
-        JLabel generationText = new JLabel("Run for 10 gens", SwingConstants.CENTER);
-        generationText.setForeground(new Color(0, 255, 0));
+        // Main Control Panel
+        JPanel mainControls = new JPanel(new GridLayout(4, 2, 1, 0));
+        mainControls.setBackground(new Color(15, 15, 15));
 
-        // Generations Slider
-        AtomicInteger generations = new AtomicInteger(10);
-        JSlider generationSlider = new JSlider(JSlider.HORIZONTAL,0,5,1);
-        generationSlider.setBackground(new Color(15,15,15));
-        generationSlider.addChangeListener(e -> {
-                generations.set((int) Math.pow(10, generationSlider.getValue()));
-                if(generations.get() == 1){
-                    generationText.setText("Run for one gen");
-                }
-                else if(generations.get() == 100000){
-                    generationText.setText("Run endlessly");
-                    generations.set(Integer.MAX_VALUE); // Pretty much infinite
-                }
-                else{
-                generationText.setText("Run for "+generations+" gens");
-                }
+        // Animal information textbox
+        // TODO: Put in scrollpane, update periodically
+        JTextArea textArea = new JTextArea();
+        textArea.setBackground(new Color(0,0,0));
+        textArea.setForeground(new Color(0,255,0));
+        textArea.setEditable(false);
+
+        // Animal Picker Text
+        JLabel animalText = new JLabel("Show Animal's Genes", SwingConstants.CENTER);
+        animalText.setForeground(new Color(0, 255, 0));
+
+        // Animal Picker
+        String[] animalChoices = new String[1200];
+        for (int i = 0; i < animalChoices.length; i++) {
+            animalChoices[i] = (i+1)+ ordinalSuffix(i+1)+" Place";
+        }
+        JComboBox<String> animalPicker = new JComboBox<>(animalChoices);
+        animalPicker.setForeground(new Color(0, 255, 0));
+        animalPicker.setBackground(new Color(15,15,15));
+        animalPicker.addActionListener(e -> {
+            animalSelection = 1199-animalPicker.getSelectedIndex();
+            //textArea.setText(placement[animalSelection]); TODO: Update immediately upon selection
+            //textArea.setText(Integer.toString(1199-animalSelection));
         });
 
         // Progress text
@@ -98,43 +105,39 @@ public class AnimalSim {
         playBox.setBackground(new Color(15,15,15));
         playBox.setForeground(new Color(0, 255, 0));
         playBox.setFocusPainted(false);
-        /*playBox.addActionListener(e -> {
-            if(!running.get() && playBox.isSelected()){
-                generations.set(1);
-                running.set(true);
-            }
-        });*/
 
         // Cancel Button
-        JButton resetButton = new JButton("Exit");
-        resetButton.setPreferredSize(new Dimension(200, 50));
-        resetButton.setFocusPainted(false);
-        resetButton.setBorder(null);
-        resetButton.setBackground(new Color(31, 31, 31));
-        resetButton.setForeground(new Color(255, 63, 63));
-        resetButton.addActionListener(e -> {
+        JButton pauseButton = new JButton("Exit");
+        pauseButton.setPreferredSize(new Dimension(200, 50));
+        pauseButton.setFocusPainted(false);
+        pauseButton.setBorder(null);
+        pauseButton.setBackground(new Color(31, 31, 31));
+        pauseButton.setForeground(new Color(255, 63, 63));
+        pauseButton.addActionListener(e -> {
             if(running.get()){
-            reset.set(true);
-            resetButton.setText("Waiting for Game...");
-            resetButton.setEnabled(false);
+            pause.set(true);
+            pauseButton.setText("Waiting for Game...");
+            pauseButton.setEnabled(false);
             }
             else{
                 System.exit(0);
             }
         });
 
-
         // Add components
-        dialog.add(mutationText);
-        dialog.add(generationText);
-        dialog.add(mutationSlider);
-        dialog.add(generationSlider);
-        dialog.add(gameNumText);
-        dialog.add(playBox);
-        dialog.add(demoButton);
-        dialog.add(resetButton);
+        mainControls.add(mutationText);
+        mainControls.add(animalText);
+        mainControls.add(mutationSlider);
+        mainControls.add(animalPicker);
+        mainControls.add(gameNumText);
+        mainControls.add(playBox);
+        mainControls.add(demoButton);
+        mainControls.add(pauseButton);
 
-        dialog.setLayout(new GridLayout(4, 2, 1, 0));
+        dialog.setLayout(new GridLayout(1, 2, 4, 0));
+        dialog.add(mainControls, BorderLayout.CENTER);
+        dialog.add(textArea, BorderLayout.EAST);
+
         dialog.setBackground(new Color(15, 15, 15));
 
         // Finalize
@@ -142,42 +145,33 @@ public class AnimalSim {
         dialog.setLocationRelativeTo(null); // Center
         dialog.setVisible(true);
 
+        int gen = 0;
+
+
+        // Active part of the code
         while (looping) {
             if (running.get()) {
                 demoButton.setEnabled(false);
                 mutationSlider.setEnabled(false);
-                generationSlider.setEnabled(false);
-                resetButton.setText("Cancel");
+                pauseButton.setText("Pause");
                 demoButton.setText("Running...");
 
-                for (int i = 0; i < generations.get(); i++) {
-                    if(reset.get()){
-                        for (int j = 0; j < genePool.length; j++) {
-                            genePool[i] = new Genes(Genes.TEMPLATE);
-                            if (j < genePool.length / 3) {
-                                genePool[j].setSpecies('L');
-                            } else if (j < (genePool.length / 3) * 2) {
-                                genePool[j].setSpecies('W');
-                            } else {
-                                genePool[j].setSpecies('B');
-                            }
-                        }
-                        resetButton.setText("Exit");
-                        resetButton.setEnabled(true);
-                        reset.set(false);
-                        gameNumText.setText("Generation 0");
+                while(running.get()){
+                    gen++;
+                    if(pause.get()){
+                        pauseButton.setText("Exit");
+                        pauseButton.setEnabled(true);
+                        pause.set(false);
                         break;
                     }
-                    gameNumText.setText("Generation "+(i+1));
+                    gameNumText.setText("Generation "+gen);
                     boolean isVisible = playBox.isSelected();
                     playBox.setSelected(false);
 
                     // Main loop
                     Animal[] placement = new Game(isVisible, 200, 1200).run(genePool);
                     System.out.println("Game ended at t="+placement[1199].getAge()); // TODO: Handle extinction scenario
-                    System.out.print("'"+placement[1199].getSymbol()+"' #"+placement[1199].getID()+" wins! Code:\n");
-                    System.out.println(placement[1199].getGenes().translateGenes());
-                    //System.out.println("  ("+(placement[1199].getCode().length-23)/8+")"); // Print number of chunks
+                    textArea.setText(placement[animalSelection].getGenes().translateGenes());
                     Animal[] mutatedAnimals = Genes.mutateAnimals(placement, mutationRate.get());
                     for (int j = 0; j < mutatedAnimals.length; j++) {
                         genePool[j] = mutatedAnimals[j].getGenes();
@@ -185,11 +179,26 @@ public class AnimalSim {
                 }
 
                 demoButton.setEnabled(true);
-                generationSlider.setEnabled(true);
                 mutationSlider.setEnabled(true);
                 demoButton.setText("Run Simulation");
                 running.set(false);
             }
+        }
+    }
+
+    private static String ordinalSuffix(int number){ // 1st, 2nd, 3rd, etc.
+        String numString = Integer.toString(number);
+        int lastDigit = Integer.parseInt(numString.substring(numString.length()-1));
+        if(Math.abs(number)>9){
+            // If the tens digit of a number is 1, the number always ends in "th"
+            int tensDigit = Integer.parseInt(numString.substring(numString.length()-2,numString.length()-1));
+            if(tensDigit==1){return "th";}
+        }
+        switch(lastDigit){
+            case 1: return "st";
+            case 2: return "nd";
+            case 3: return "rd";
+            default: return "th";
         }
     }
 }

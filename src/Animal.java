@@ -23,13 +23,11 @@ class Animal {
         this.y = y;
         this.ID = ID;
         this.symbol = (char)code[4];
+        this.skill = code[9];
         energy = 2000;
         age = 0;
-        skill = code[9];
         alive = true;
     }
-
-    // TODO: Abilities
 
     Animal(Animal otherAnimal){ // Clone an animal
         this.genes = new Genes(otherAnimal.genes.getCode());
@@ -51,16 +49,23 @@ class Animal {
     }
 
     Attack attack(char opponent){
-        return genes.getAttack(opponent);
+        Attack chosenAttack = genes.getAttack(opponent);
+        // Force animals to only be able to throw two types of moves to give the species themselves a rock-paper-scissors dynamic
+        // Animals can only throw attacks neutral or weak to the animal they're weak against, to encourage them to avoid that animal
+        if(symbol == 'W' && chosenAttack == Attack.ROCK){
+            chosenAttack = Attack.SCISSORS;
+        }
+        else if(symbol == 'L' && chosenAttack == Attack.PAPER){
+            chosenAttack = Attack.ROCK;
+        }
+        else if(symbol == 'B' && chosenAttack == Attack.SCISSORS){
+            chosenAttack = Attack.PAPER;
+        }
+        return chosenAttack;
     }
 
     final void die(){
-        if(canUseSkill && symbol == 'L' && skill == 1){ // Extra life ability
-            canUseSkill = false;
-        }
-        else{
         alive = false;
-        }
     }
 
     final int getX(){
@@ -110,16 +115,15 @@ class Animal {
         return genes;
     }
 
+    final int getSkill() {
+        return skill;
+    }
+
     final boolean canUseSkill(){
         return canUseSkill;
     }
 
-    final void deactivateSkill(){
-        System.out.println(skill+" used!");
+    final void useSkill(){
         canUseSkill = false;
-    }
-
-    final int getSkill(){
-        return skill;
     }
 }
