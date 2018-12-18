@@ -24,7 +24,7 @@ class Animal {
         this.ID = ID;
         this.symbol = (char)code[4];
         this.skill = code[9];
-        energy = 2000;
+        energy = /*2000*/20000; // TODO: Ability to toggle energy settings between low and high
         age = 0;
         alive = true;
     }

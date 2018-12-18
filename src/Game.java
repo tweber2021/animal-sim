@@ -11,6 +11,7 @@ class Game {
     private Animal[] placement;
     private int placementPos = 0;
     private GameOfLife conway;
+    private boolean combatEnabled = false; // TODO: Add in constructor
 
     Game(boolean visible, int width, int numAnimals) {
         this.visible = visible;
@@ -187,7 +188,7 @@ class Game {
         animal.setEnergy(animal.getEnergy() - energyUsage);
 
         int destID = map.readID(desiredX, desiredY);
-        if (destID != -1 && destID != animal.getID() && animals[destID].getSymbol() != animal.getSymbol()) { // If another animal with a different species is in the same space...
+        if (destID != -1 && destID != animal.getID() && animals[destID].getSymbol() != animal.getSymbol() && combatEnabled) { // If another animal with a different species is in the same space...
             // Fight!
             Animal defender = animals[map.readID(desiredX, desiredY)];
             if (rockPaperScissors(animal.attack(defender.getSymbol()), defender.attack(animal.getSymbol()))) { // If the attacker (this animal) wins

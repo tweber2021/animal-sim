@@ -26,7 +26,7 @@ public class AnimalSim {
             }
         }
 
-        // TODO: Ability to change base energy, possibly other animal properties, such as immunity to attacks
+        // TODO: Checkbox/slider/other element that changes energy
         // TODO: Ability to add animals with custom Genes
 
         // Starting Menu
@@ -204,7 +204,7 @@ public class AnimalSim {
                 if(placement[1199].getAge() > 0){
                 demoButton.setEnabled(true);
                 mutationSlider.setEnabled(true);
-                demoButton.setText("Run Simulation");
+                demoButton.setText("Resume");
                 running.set(false);
                 }
                 // End the simulation due to extinction
