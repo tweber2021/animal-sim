@@ -10,12 +10,23 @@ class Game {
     private int numAnimals;
     private Animal[] placement;
     private int placementPos = 0;
+    private GameOfLife conway;
 
     Game(boolean visible, int width, int numAnimals) {
         this.visible = visible;
         this.width = width;
         this.numAnimals = numAnimals;
+        conway = new GameOfLife(width,(int)(0.4375 * width),20,visible);
         fastForward = false;
+        open = true;
+    }
+
+    Game(int width, int numAnimals, GameOfLife conway) {
+        this.width = width;
+        this.numAnimals = numAnimals;
+        this.conway = new GameOfLife(conway.getInitialPattern());
+        fastForward = false;
+        visible = false;
         open = true;
     }
 
@@ -42,7 +53,11 @@ class Game {
         for (int i = 0; i < animals.length; i++) {
             animals[i] = new Animal(i, (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
         }
-        GameOfLife conway = new GameOfLife(map.getWidth(), map.getHeight(), 20, visible); // Don't prompt the user for a pattern if they don't watch
+        /*if(visible){
+            // conway = new GameOfLife(map.getWidth(), map.getHeight(), 20, true);
+            conway = new GameOfLife(map.getWidth(), map.getHeight(), 20, false);
+        }*/
+        // Don't prompt the user for a pattern if they don't watch
         window.centerView();
 
         if (visible) {

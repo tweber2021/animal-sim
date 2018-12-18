@@ -26,6 +26,9 @@ public class AnimalSim {
             }
         }
 
+        // TODO: Ability to change base energy, possibly other animal properties, such as immunity to attacks
+        // TODO: Ability to add animals with custom Genes
+
         // Starting Menu
         JFrame dialog = new JFrame("AnimalSim - Settings");
         dialog.setResizable(false);
@@ -113,7 +116,7 @@ public class AnimalSim {
         playBox.setForeground(new Color(0, 255, 0));
         playBox.setFocusPainted(false);
 
-        // Cancel Button
+        // Pause Button
         JButton pauseButton = new JButton("Exit");
         pauseButton.setPreferredSize(new Dimension(200, 50));
         pauseButton.setFocusPainted(false);
@@ -154,6 +157,9 @@ public class AnimalSim {
 
         int gen = 0;
 
+        // Initial GameOfLife prompt
+        GameOfLife baseGameOfLife = new GameOfLife(200,(int)(0.4375 * 200),20, true);
+
         // Active part of the code
         while (looping) {
             if (running.get()) {
@@ -175,9 +181,18 @@ public class AnimalSim {
                     playBox.setSelected(false);
 
                     // Main loop
-                    placement = new Game(isVisible, 200, 1200).run(genePool);
+                    if(isVisible){
+                        placement = new Game(true, 200, 1200).run(genePool);
+                    }
+                    else {
+                        placement = new Game(200, 1200, baseGameOfLife).run(genePool);
+                    }
                     ranBefore = true;
                     //System.out.println("Game ended at t="+placement[1199].getAge());
+                    if(placement[1199].getAge() == 0){ // Instant game ends mean that there's only one species left
+                        System.err.println("Extinction. "+placement[1199].getSymbol()+"s win.");
+                        pause.set(true);
+                    }
                     textArea.setText(placement[animalSelection].getGenes().translateGenes());
                     Animal[] mutatedAnimals = Genes.mutateAnimals(placement, mutationRate.get());
                     for (int j = 0; j < mutatedAnimals.length; j++) {
@@ -185,10 +200,19 @@ public class AnimalSim {
                     }
                 }
 
+                // Pause the game normally
+                if(placement[1199].getAge() > 0){
                 demoButton.setEnabled(true);
                 mutationSlider.setEnabled(true);
                 demoButton.setText("Run Simulation");
                 running.set(false);
+                }
+                // End the simulation due to extinction
+                else{
+                    demoButton.setEnabled(false);
+                    demoButton.setText("Game Over.");
+                    running.set(false);
+                }
             }
         }
     }

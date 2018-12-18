@@ -7,6 +7,7 @@ class SimWindow extends JFrame {
     private String sideText;
     JButton fastForwardButton = new JButton("Fast Forward");
     private JScrollPane scrollPane;
+    private boolean zoomLock = false;
 
     SimWindow(String title, int size){
         super(title); // Use JFrame constructor
@@ -31,8 +32,11 @@ class SimWindow extends JFrame {
 
         JSlider zoomSlider = new JSlider(JSlider.HORIZONTAL,1,24,6);
         zoomSlider.addChangeListener(e -> {
-            textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, zoomSlider.getValue()));
-            centerView();
+            int value = zoomSlider.getValue();
+            if(!zoomLock) {
+                textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, value));
+                centerView();
+            }
         });
 
         JPanel controlPanel = new JPanel(new GridLayout(2,1));
@@ -67,7 +71,10 @@ class SimWindow extends JFrame {
     }
 
     void setMap(Map map) {
+        // TODO: Apply zoom changes after lock is removed, but don't if there are none
+        zoomLock = true; // Lock zooming it doesn't interrupt the the setText method
         textArea.setText(mapToText(map));
+        zoomLock = false;
     }
 
     void centerView(){

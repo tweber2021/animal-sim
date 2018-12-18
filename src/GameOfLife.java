@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 class GameOfLife { // Conway's Game of Life using Maps for game compatibility
     private String patternText = "";
+    private Map initialPattern;
     private Map pattern;
     private Map nextPattern;
     private int kills;
@@ -13,9 +14,22 @@ class GameOfLife { // Conway's Game of Life using Maps for game compatibility
     GameOfLife(int width, int height, int randomSize, boolean prompt){
         pattern = new Map(width,height);
         nextPattern = new Map(width,height);
+        initialPattern = new Map(width, height);
         if(prompt){promptPattern();}
         else{randomize(randomSize);}
+        initialPattern.setEqualTo(pattern);
         nextPattern.setEqualTo(pattern);
+    }
+
+    GameOfLife(Map initPattern){
+        pattern = new Map(initPattern.getWidth(),initPattern.getHeight());
+        nextPattern = new Map(initPattern.getWidth(),initPattern.getHeight());
+        pattern.setEqualTo(initPattern);
+        nextPattern.setEqualTo(initPattern);
+    }
+
+    Map getInitialPattern(){
+        return initialPattern;
     }
 
     Map gen(){ // Possible Improvement: Represent life cells as points and only iterate through those and their surrounding dead cells instead of looping through everything
