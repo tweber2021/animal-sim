@@ -5,30 +5,20 @@ class Game {
     private boolean fastForward; // give our toggle speed method access to the speed
     private boolean visible;
     private static char[] TEAMS = new char[]{'B', 'W', 'L'};
-    private boolean open;
     private int width;
     private int numAnimals;
     private Animal[] placement;
     private int placementPos = 0;
     private GameOfLife conway;
-    private boolean combatEnabled = false; // TODO: Add in constructor
+    private boolean combatEnabled;
 
-    Game(boolean visible, int width, int numAnimals) {
+    Game(boolean visible, int width, int numAnimals, boolean combatEnabled, GameOfLife conway) {
         this.visible = visible;
         this.width = width;
         this.numAnimals = numAnimals;
-        conway = new GameOfLife(width,(int)(0.4375 * width),20,visible);
-        fastForward = false;
-        open = true;
-    }
-
-    Game(int width, int numAnimals, GameOfLife conway) {
-        this.width = width;
-        this.numAnimals = numAnimals;
         this.conway = new GameOfLife(conway.getInitialPattern());
+        this.combatEnabled = combatEnabled;
         fastForward = false;
-        visible = false;
-        open = true;
     }
 
     Animal[] run(Genes[] genePool) { // Run games for a certain number of iterations
@@ -44,21 +34,23 @@ class Game {
             window.sidePrintln("Animal Simulation");
             window.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
-                    open = false;
+                    visible = false;
                 }
             });
         }
 
         Animal[] animals = new Animal[numAnimals];
 
-        for (int i = 0; i < animals.length; i++) {
-            animals[i] = new Animal(i, (int) (Math.random() * width), (int) (Math.random() * height), genePool[i].getCode());
+        int totalEnergy;
+        if(combatEnabled){
+            totalEnergy = 2000;
         }
-        /*if(visible){
-            // conway = new GameOfLife(map.getWidth(), map.getHeight(), 20, true);
-            conway = new GameOfLife(map.getWidth(), map.getHeight(), 20, false);
-        }*/
-        // Don't prompt the user for a pattern if they don't watch
+        else{
+            totalEnergy = 50000; // Emphasis on movement, requires more energy
+        }
+        for (int i = 0; i < animals.length; i++) {
+            animals[i] = new Animal(i, (int)(Math.random() * width), (int)(Math.random() * height), totalEnergy, genePool[i].getCode());
+        }
         window.centerView();
 
         if (visible) {
@@ -73,7 +65,7 @@ class Game {
             window.setClosable(true);
         }
 
-        while (open && remainingTeams(animals) > 1) { // Check if at least two teams are playing
+        while ((remainingTeams(animals) > 1||!combatEnabled) && countAlive(animals) > 1) { // Check if at least two teams are playing, or combat is disabled to keep going
             long time = System.currentTimeMillis();
             refreshMap(map, animals);
             map.overlay(conway.getPattern());

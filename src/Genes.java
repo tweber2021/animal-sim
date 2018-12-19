@@ -154,8 +154,6 @@ class Genes {
         return MOVES_START+(chunkNum*8)+relativePos;
     }
 
-    // Animal.Ability getAbility(int abilityID){}
-
     private void mutate(double mutationRate){
         // Chunk insertion/deletion
         if(Math.random()<mutationRate/5){
@@ -311,15 +309,15 @@ class Genes {
         return (int)visionChars[choice];
     }
 
-    static Animal[] mutateAnimals(Animal[] leaderboard, double maxMutationRate){
+    static Animal[] mutateAnimals(Animal[] leaderboard, double maxMutationRate, int precision){
         Animal[] result = new Animal[leaderboard.length];
-        for (int i = 0; i < leaderboard.length / 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                int newPos = 1199-((i*10)+j);
+        for (int i = 0; i < leaderboard.length / precision; i++) {
+            for (int j = 0; j < precision; j++) {
+                int newPos = 1199-((i*precision)+j);
                 double mutationRate = ((double)newPos/leaderboard.length*maxMutationRate);
                 Genes newGenes = new Genes(leaderboard[i].getGenes().getCode());
                 newGenes.mutate(mutationRate);
-                result[(i*10)+j] = new Animal(newPos,leaderboard[i].getX(),leaderboard[i].getY(),newGenes.getCode());
+                result[(i*precision)+j] = new Animal(newPos,leaderboard[i].getX(),leaderboard[i].getY(),leaderboard[i].getInitialEnergy(),newGenes.getCode());
             }
         }
         return result;

@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AnimalSim {
@@ -25,9 +26,6 @@ public class AnimalSim {
                 genePool[i].setSpecies('B');
             }
         }
-
-        // TODO: Checkbox/slider/other element that changes energy
-        // TODO: Ability to add animals with custom Genes
 
         // Starting Menu
         JFrame dialog = new JFrame("AnimalSim - Settings");
@@ -60,20 +58,28 @@ public class AnimalSim {
         mutationSlider.addChangeListener(e -> {
             mutationRate.set((double) (mutationSlider.getValue()) / 100);
             mutationText.setText("Mutation Rate: "+(int)(mutationRate.get() *100)+"%");
-            for (int i = 0; i < genePool.length; i++) {
-                genePool[i] = new Genes(Genes.TEMPLATE);
-                if (i < genePool.length / 3) {
-                    genePool[i].setSpecies('L');
-                } else if (i < (genePool.length / 3) * 2) {
-                    genePool[i].setSpecies('W');
-                } else {
-                    genePool[i].setSpecies('B');
-                }
-            }
+        });
+
+        // Precision text
+        JLabel precisionText = new JLabel("Precision: Top 100", SwingConstants.CENTER);
+        precisionText.setForeground(new Color(0, 255, 0));
+
+        // 1200 has to divide the value evenly for it to work, giving this list of possible settings
+        int[] precisionValues = new int[]{1,2,3,4,5,6,8,10,12,15,16,20,24,25,30,40,48,50,60,75,80,100,120,150,200,240,300,400,600,1200};
+
+        // Precision Slider
+        AtomicInteger precision = new AtomicInteger();
+        precision.set(8);
+        JSlider precisionSlider = new JSlider(JSlider.HORIZONTAL,0,precisionValues.length-1,precision.get());
+        precisionSlider.setBackground(new Color(15,15,15));
+        precisionSlider.addChangeListener(e -> {
+            precision.set(precisionValues[precisionSlider.getValue()]);
+            //precision.set(precisionSlider.getValue()*5);
+            precisionText.setText("Precision: Top "+(1200/precision.get()));
         });
 
         // Main Control Panel
-        JPanel mainControls = new JPanel(new GridLayout(4, 2, 1, 0));
+        JPanel mainControls = new JPanel(new GridLayout(6, 2, 1, 0));
         mainControls.setBackground(new Color(15, 15, 15));
 
         // Animal information textarea
@@ -116,6 +122,13 @@ public class AnimalSim {
         playBox.setForeground(new Color(0, 255, 0));
         playBox.setFocusPainted(false);
 
+        // Toggle fighting checkbox
+        JCheckBox fightBox = new JCheckBox("Combat-Oriented");
+        fightBox.setBackground(new Color(15,15,15));
+        fightBox.setForeground(new Color(0, 255, 0));
+        fightBox.setFocusPainted(false);
+        fightBox.setSelected(true);
+
         // Pause Button
         JButton pauseButton = new JButton("Exit");
         pauseButton.setPreferredSize(new Dimension(200, 50));
@@ -136,8 +149,12 @@ public class AnimalSim {
 
         // Add components
         mainControls.add(mutationText);
-        mainControls.add(animalText);
+        mainControls.add(precisionText);
         mainControls.add(mutationSlider);
+        mainControls.add(precisionSlider);
+        mainControls.add(new JLabel()); // Gap
+        mainControls.add(animalText);
+        mainControls.add(fightBox);
         mainControls.add(animalPicker);
         mainControls.add(gameNumText);
         mainControls.add(playBox);
@@ -165,6 +182,9 @@ public class AnimalSim {
             if (running.get()) {
                 demoButton.setEnabled(false);
                 mutationSlider.setEnabled(false);
+                precisionSlider.setEnabled(false);
+
+                fightBox.setEnabled(false);
                 pauseButton.setText("Pause");
                 demoButton.setText("Running...");
 
@@ -178,23 +198,20 @@ public class AnimalSim {
                     gen++;
                     gameNumText.setText("Generation "+gen);
                     boolean isVisible = playBox.isSelected();
+                    boolean allowCombat = fightBox.isSelected();
                     playBox.setSelected(false);
 
                     // Main loop
-                    if(isVisible){
-                        placement = new Game(true, 200, 1200).run(genePool);
-                    }
-                    else {
-                        placement = new Game(200, 1200, baseGameOfLife).run(genePool);
-                    }
+                    placement = new Game(isVisible,200, 1200, allowCombat, baseGameOfLife).run(genePool);
                     ranBefore = true;
-                    //System.out.println("Game ended at t="+placement[1199].getAge());
                     if(placement[1199].getAge() == 0){ // Instant game ends mean that there's only one species left
-                        System.err.println("Extinction. "+placement[1199].getSymbol()+"s win.");
+                        System.err.println("Extinction. Winner: "+placement[1199].getSymbol());
+                        System.err.println("Reassigning species.");
                         pause.set(true);
                     }
                     textArea.setText(placement[animalSelection].getGenes().translateGenes());
-                    Animal[] mutatedAnimals = Genes.mutateAnimals(placement, mutationRate.get());
+                    // TODO: After all this, mutations, the core principle that makes everything work, was broken the whole time.
+                    Animal[] mutatedAnimals = Genes.mutateAnimals(placement, mutationRate.get(), precision.get());
                     for (int j = 0; j < mutatedAnimals.length; j++) {
                         genePool[j] = mutatedAnimals[j].getGenes();
                     }
@@ -202,10 +219,12 @@ public class AnimalSim {
 
                 // Pause the game normally
                 if(placement[1199].getAge() > 0){
-                demoButton.setEnabled(true);
-                mutationSlider.setEnabled(true);
-                demoButton.setText("Resume");
-                running.set(false);
+                    demoButton.setEnabled(true);
+                    mutationSlider.setEnabled(true);
+                    precisionSlider.setEnabled(true);
+                    fightBox.setEnabled(true);
+                    demoButton.setText("Resume");
+                    running.set(false);
                 }
                 // End the simulation due to extinction
                 else{

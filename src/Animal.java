@@ -4,6 +4,7 @@ class Animal {
     private int x;
     private int y;
     private int energy;
+    private int initialEnergy;
     private int ID;
     private int kills;
     private int age;
@@ -17,14 +18,15 @@ class Animal {
     enum Move{UP, DOWN, LEFT, RIGHT, STAND}
     enum Attack{ROCK, PAPER, SCISSORS, NOTHING}
 
-    Animal(int ID, int x, int y, byte[] code){
+    Animal(int ID, int x, int y, int energy, byte[] code){
         this.genes = new Genes(code);
         this.x = x;
         this.y = y;
         this.ID = ID;
         this.symbol = (char)code[4];
         this.skill = code[9];
-        energy = /*2000*/20000; // TODO: Ability to toggle energy settings between low and high
+        this.energy = energy;
+        initialEnergy = energy;
         age = 0;
         alive = true;
     }
@@ -37,6 +39,7 @@ class Animal {
         this.symbol = otherAnimal.symbol;
         this.skill = otherAnimal.skill;
         this.energy = otherAnimal.energy;
+        this.initialEnergy = otherAnimal.initialEnergy;
         this.kills = otherAnimal.kills;
         this.age = otherAnimal.age;
         this.alive = otherAnimal.alive;
@@ -91,6 +94,10 @@ class Animal {
 
     final char getSymbol(){
         return symbol;
+    }
+
+    final int getInitialEnergy(){
+        return initialEnergy;
     }
 
     final int getEnergy(){
