@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="Fix zoom and handle extinction, initial patterns">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e7da1948-afcf-4afc-99c5-4535a86b49a7" name="Default" comment="UI changes, distinguished new modes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Animal$Attack.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Animal$Attack.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Animal$Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Animal$Move.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Animal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Animal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/AnimalSim$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/AnimalSim$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/AnimalSim.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/AnimalSim.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/animalSim/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/animalSim/Genes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/animalSim/Genes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AnimalSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnimalSim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genes.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,14 +18,14 @@
     <session id="-1865449517">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="26226" />
-          <entry key="txt" value="753" />
+          <entry key="java" value="26476" />
+          <entry key="txt" value="798" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="26226" />
-          <entry key="PLAIN_TEXT" value="753" />
+          <entry key="JAVA" value="26476" />
+          <entry key="PLAIN_TEXT" value="798" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -70,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AnimalSim.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="157" column="39" selection-start-line="157" selection-start-column="39" selection-end-line="157" selection-end-column="39" />
+            <state relative-caret-position="-15">
+              <caret line="207" column="95" selection-start-line="207" selection-start-column="95" selection-end-line="207" selection-end-column="95" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -82,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SimWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
+            <state relative-caret-position="-12">
+              <caret line="69" column="32" selection-start-line="69" selection-start-column="32" selection-end-line="69" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -143,11 +133,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Genes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="313" selection-start-line="313" selection-end-line="313" />
+            <state relative-caret-position="301">
+              <caret line="321" column="80" selection-start-line="321" selection-start-column="80" selection-end-line="321" selection-end-column="80" />
               <folding>
-                <element signature="e#12804#12805#0" expanded="true" />
-                <element signature="e#12850#12851#0" expanded="true" />
+                <element signature="e#13073#13074#0" expanded="true" />
+                <element signature="e#13119#13120#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -178,11 +168,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>[1199</find>
-      <find>mainCo</find>
-      <find>mutationSlider.setE</find>
-      <find>playBox.is</find>
-      <find>new Game</find>
       <find>combat</find>
       <find>new Animal</find>
       <find>2000</find>
@@ -208,6 +193,11 @@
       <find>baseG</find>
       <find>open</find>
       <find>combatE</find>
+      <find>mutatio</find>
+      <find>m</find>
+      <find>printl</find>
+      <find>prec</find>
+      <find>reas</find>
     </findStrings>
     <replaceStrings>
       <replace>Wolves</replace>
@@ -232,9 +222,9 @@
         <option value="$PROJECT_DIR$/src/GameOfLife.java" />
         <option value="$PROJECT_DIR$/src/SimWindow.java" />
         <option value="$PROJECT_DIR$/src/Animal.java" />
+        <option value="$PROJECT_DIR$/src/Game.java" />
         <option value="$PROJECT_DIR$/src/Genes.java" />
         <option value="$PROJECT_DIR$/src/AnimalSim.java" />
-        <option value="$PROJECT_DIR$/src/Game.java" />
       </list>
     </option>
   </component>
@@ -286,7 +276,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545187904185" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545226125306" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -466,10 +456,17 @@
       <option name="project" value="LOCAL" />
       <updated>1545098262939</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="UI changes, distinguished new modes">
+      <created>1545187959191</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1545187959191</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -480,6 +477,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="0" width="1926" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3185699" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -490,11 +488,11 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292683" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31707317" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31707317" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39800444" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32890365" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32815966" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3292683" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3292683" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -550,7 +548,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Conway's Game of Life" />
     <MESSAGE value="Actually Added Conway's Game of Life" />
     <MESSAGE value="Fixed pattern input issues" />
     <MESSAGE value="Life Screen Wrap, Better GUI Handling" />
@@ -575,7 +572,8 @@
     <MESSAGE value="Made expanded UI work properly" />
     <MESSAGE value="Fix zoom crash, extinction handling" />
     <MESSAGE value="Fix zoom and handle extinction, initial patterns" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix zoom and handle extinction, initial patterns" />
+    <MESSAGE value="UI changes, distinguished new modes" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI changes, distinguished new modes" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/javax/swing/JScrollPane.java" />
@@ -590,19 +588,17 @@
     <entry file="jar://Z:/Dependencies/jdk-11.0.1/lib/src.zip!/java.desktop/javax/swing/text/PlainView.java" />
     <entry file="file://$PROJECT_DIR$/src/SimWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
+        <state relative-caret-position="-12">
+          <caret line="69" column="32" selection-start-line="69" selection-start-column="32" selection-end-line="69" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Animal.java">
+    <entry file="file://$PROJECT_DIR$/src/GameOfLife.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1717">
-          <caret line="121" selection-start-line="121" selection-end-line="121" />
+        <state relative-caret-position="391">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
           <folding>
-            <element signature="e#2516#2517#0" expanded="true" />
-            <element signature="e#2544#2545#0" expanded="true" />
-            <element signature="e#2799#2800#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -620,30 +616,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LifeExamples.java">
+    <entry file="file://$PROJECT_DIR$/src/Animal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Genes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="313" selection-start-line="313" selection-end-line="313" />
+        <state relative-caret-position="1717">
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
           <folding>
-            <element signature="e#12804#12805#0" expanded="true" />
-            <element signature="e#12850#12851#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameOfLife.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2516#2517#0" expanded="true" />
+            <element signature="e#2544#2545#0" expanded="true" />
+            <element signature="e#2799#2800#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -662,10 +642,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Genes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="321" column="80" selection-start-line="321" selection-start-column="80" selection-end-line="321" selection-end-column="80" />
+          <folding>
+            <element signature="e#13073#13074#0" expanded="true" />
+            <element signature="e#13119#13120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LifeExamples.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AnimalSim.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="157" column="39" selection-start-line="157" selection-start-column="39" selection-end-line="157" selection-end-column="39" />
+        <state relative-caret-position="-15">
+          <caret line="207" column="95" selection-start-line="207" selection-start-column="95" selection-end-line="207" selection-end-column="95" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -53,7 +53,7 @@ public class AnimalSim {
 
         // Mutation Rate Slider
         AtomicReference<Double> mutationRate = new AtomicReference<>(0.2);
-        JSlider mutationSlider = new JSlider(JSlider.HORIZONTAL,1,99,20);
+        JSlider mutationSlider = new JSlider(JSlider.HORIZONTAL,0,100,20);
         mutationSlider.setBackground(new Color(15,15,15));
         mutationSlider.addChangeListener(e -> {
             mutationRate.set((double) (mutationSlider.getValue()) / 100);
@@ -61,7 +61,7 @@ public class AnimalSim {
         });
 
         // Precision text
-        JLabel precisionText = new JLabel("Precision: Top 100", SwingConstants.CENTER);
+        JLabel precisionText = new JLabel("Precision: Top 25", SwingConstants.CENTER);
         precisionText.setForeground(new Color(0, 255, 0));
 
         // 1200 has to divide the value evenly for it to work, giving this list of possible settings
@@ -69,7 +69,7 @@ public class AnimalSim {
 
         // Precision Slider
         AtomicInteger precision = new AtomicInteger();
-        precision.set(8);
+        precision.set(16);
         JSlider precisionSlider = new JSlider(JSlider.HORIZONTAL,0,precisionValues.length-1,precision.get());
         precisionSlider.setBackground(new Color(15,15,15));
         precisionSlider.addChangeListener(e -> {
@@ -206,14 +206,12 @@ public class AnimalSim {
                     ranBefore = true;
                     if(placement[1199].getAge() == 0){ // Instant game ends mean that there's only one species left
                         System.err.println("Extinction. Winner: "+placement[1199].getSymbol());
-                        System.err.println("Reassigning species.");
                         pause.set(true);
                     }
                     textArea.setText(placement[animalSelection].getGenes().translateGenes());
-                    // TODO: After all this, mutations, the core principle that makes everything work, was broken the whole time.
                     Animal[] mutatedAnimals = Genes.mutateAnimals(placement, mutationRate.get(), precision.get());
                     for (int j = 0; j < mutatedAnimals.length; j++) {
-                        genePool[j] = mutatedAnimals[j].getGenes();
+                        genePool[j] = new Genes(mutatedAnimals[j].getGenes().getCode());
                     }
                 }
 

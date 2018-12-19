@@ -169,9 +169,13 @@ class Genes {
                 code[i] = (byte)(Math.random()*staticGeneRange[i]);
             }
         }
+
+        // Chunk mutations
         for (int i = 0; i < (code.length - MOVES_START)/8; i++) { // Iterate through movement chunks
             for (int j = 0; j < 8; j++) {
-                code[getAbsPos(i,j)] = (byte)(Math.random()*moveChunkRange[j]);
+                if(Math.random()<mutationRate){
+                    code[getAbsPos(i,j)] = (byte)(Math.random()*moveChunkRange[j]);
+                }
             }
 
             // Re-roll if we're using modulo variables
